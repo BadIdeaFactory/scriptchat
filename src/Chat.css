@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'Dark Courier';
+  src: url('./fonts/dark-courier.woff2') format('woff2'),
+    url('./fonts/dark-courier.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.script-area {
+  flex-grow: 1;
+}
+
+.messages {
+  font-family: 'Dark Courier', Courier, monospace;
+  font-size: 12pt;
+  padding-top: 1em;
+}
+
+.message-cue {
+  text-transform: uppercase;
+  margin-left: 4.2in;
+  width: 3.3in;
+}
+
+.message-text {
+  margin-left: 2.9in;
+  width: 3.3in;
+}
+
+.type-area {
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+}
+
+.input-text {
+  flex-grow: 1;
+}

@@ -1,4 +1,5 @@
 import React from 'react'
+import { scriptParser } from '../scripts/file-handlers'
 import './Filedrop.css'
 
 export default class Filedrop extends React.Component {
@@ -42,7 +43,7 @@ export default class Filedrop extends React.Component {
       const reader = new window.FileReader()
 
       reader.onload = function (e) {
-        console.log(e.target.result)
+        scriptParser(e.target.result)
       }
 
       reader.readAsText(file)

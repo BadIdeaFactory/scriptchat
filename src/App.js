@@ -1,13 +1,18 @@
 import React from 'react'
-import Chat from './Chat'
+import Controls from './Controls'
 import Script from './Script'
+import './App.css'
 
 class App extends React.Component {
   render () {
     return (
-      <div>
-        <Chat />
-        <Script />
+      <div className="workspace">
+        <div className="control-pane">
+          <Controls />
+        </div>
+        <div className="script-pane">
+          <Script />
+        </div>
       </div>
     )
   }

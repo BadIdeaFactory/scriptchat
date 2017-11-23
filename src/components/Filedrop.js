@@ -1,8 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { scriptParser } from '../scripts/file-handlers'
+import { storeFountainResult } from '../store/actions/script'
 import './Filedrop.css'
 
-export default class Filedrop extends React.Component {
+class Filedrop extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func
+  }
+
   constructor (props) {
     super(props)
 
@@ -42,8 +50,9 @@ export default class Filedrop extends React.Component {
     if (file) {
       const reader = new window.FileReader()
 
-      reader.onload = function (e) {
+      reader.onload = (e) => {
         scriptParser(e.target.result)
+          .then(this.props.storeFountainResult)
       }
 
       reader.readAsText(file)
@@ -64,7 +73,13 @@ export default class Filedrop extends React.Component {
         onDragOver={this.onDragOver}
         onDragLeave={this.onDragLeave}
         onDrop={this.onDrop}
-      />
+      >x</div>
     )
   }
 }
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ storeFountainResult }, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(Filedrop)

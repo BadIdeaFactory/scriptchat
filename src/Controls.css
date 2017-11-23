@@ -1,0 +1,10 @@
+.controls {
+  padding: 1em;
+  padding-top: 25px; /* match top of script page edge */
+  color: #666;
+}
+
+.controls h1 {
+  margin-top: 0;
+  text-transform: uppercase;
+}

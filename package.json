@@ -16,9 +16,7 @@
     "react-scripts": "1.0.17",
     "redux": "3.7.2",
     "semantic-ui-css": "2.2.12",
-    "semantic-ui-react": "0.76.0",
-    "socket.io": "2.0.4",
-    "socket.io-client": "2.0.4"
+    "semantic-ui-react": "0.76.0"
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",

@@ -10,11 +10,15 @@
 }
 
 .control-pane {
-  flex-grow: 1;
+  width: 300px;
   overflow-y: auto;
 }
 
 .script-pane {
   min-width: 650px;
+  flex-grow: 1;
   overflow-y: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+  text-align: center;
 }

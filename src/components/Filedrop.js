@@ -73,7 +73,9 @@ class Filedrop extends React.Component {
         onDragOver={this.onDragOver}
         onDragLeave={this.onDragLeave}
         onDrop={this.onDrop}
-      >x</div>
+      >
+        <button onClick={this.onClickOpenFileButton}>Open script file</button>
+      </div>
     )
   }
 }

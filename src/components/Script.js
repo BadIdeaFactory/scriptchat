@@ -8,6 +8,26 @@ class Script extends React.Component {
     fountain: PropTypes.object
   }
 
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      size: 'large'
+    }
+  }
+
+  // todo: shouldcomponentupdate should check this.state.size
+
+  componentDidMount () {
+    window.addEventListener('resize', (event) => {
+      if (window.innerWidth < 1100) {
+        this.setState({ size: 'small' })
+      } else {
+        this.setState({ size: 'large' })
+      }
+    })
+  }
+
   getTitlePage () {
     const fountain = this.props.fountain
 
@@ -23,9 +43,10 @@ class Script extends React.Component {
   render () {
     const fountain = this.props.fountain
     const titlePage = this.getTitlePage()
+    const size = (this.state.size === 'large') ? 'dpi100' : 'dpi72'
 
     return (
-      <div id="script" className="us-letter dpi72">
+      <div id="script" className={`us-letter ${size}`}>
         {titlePage}
         <div className="page" dangerouslySetInnerHTML={{ __html: fountain && fountain.html && fountain.html.script || '' }} />
       </div>

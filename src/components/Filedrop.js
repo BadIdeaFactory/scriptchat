@@ -86,7 +86,10 @@ class Filedrop extends React.Component {
     handleFiles(fileList)
       .then((files) => {
         files.forEach(file => {
-          // try parsing as json first
+          // try parsing as JSON first, if it's not parseable as JSON,
+          // send it to Fountain - note: this will only show the last Fountain file
+          // per dropped set of files but that's okay, since it really shouldn't
+          // happen frequently in the long run, this is just for testing.
           try {
             const json = JSON.parse(file)
             console.log(json)

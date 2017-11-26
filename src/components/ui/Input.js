@@ -17,6 +17,8 @@ export default class Input extends React.Component {
   constructor (props) {
     super(props)
 
+    this.id = this.props.label.toLowerCase().replace(' ', '_') + '-' + Date.now()
+
     this.state = {
       value: this.props.value
     }
@@ -46,8 +48,9 @@ export default class Input extends React.Component {
           name={this.props.label}
           value={this.state.value}
           onChange={this.onChange}
+          id={this.id}
         />
-        <label><span>{this.props.label}</span></label>
+        <label htmlFor={this.id}><span>{this.props.label}</span></label>
       </div>
     )
   }

@@ -22,6 +22,12 @@ export default class Input extends React.Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (this.props.value !== nextProps.value) {
+      this.setState({ value: nextProps.value })
+    }
+  }
+
   onChange = (event) => {
     const value = event.target.value
 

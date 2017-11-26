@@ -47,7 +47,7 @@ input.input-with-label + label {
 
 input.input-with-label:focus + label > span,
 input.input-with-label:valid + label > span {
-  top: -60px;
+  top: -54px;
   font-size: 15px;
 }
 

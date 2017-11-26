@@ -18,11 +18,21 @@ const script = (state = initialState, action) => {
         ...state,
         author: action.author
       }
-    case STORE_FOUNTAIN_RESULT:
+    case STORE_FOUNTAIN_RESULT: {
+      let author
+      for (let i = 0; i < action.fountain.tokens.length; i++) {
+        if (action.fountain.tokens[i].type === 'author') {
+          author = action.fountain.tokens[i].text
+        }
+      }
+
       return {
         ...state,
-        fountain: action.fountain
+        fountain: action.fountain,
+        title: action.fountain.title,
+        author
       }
+    }
     default:
       return state
   }

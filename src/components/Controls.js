@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Filedrop from './Filedrop'
 import Input from './ui/Input'
 import { setTitle, setAuthor } from '../store/actions/script'
 import './Controls.css'
@@ -21,7 +20,7 @@ class Controls extends React.Component {
           <Input label="Title" value={this.props.title} onChange={this.props.setTitle} />
           <Input label="Author" value={this.props.author} onChange={this.props.setAuthor} />
         </div>
-        <Filedrop />
+        <button onClick={this.onClickOpenFileButton}>Open script file</button>
       </div>
     )
   }

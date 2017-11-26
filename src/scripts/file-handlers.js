@@ -1,3 +1,4 @@
+import { isPlainObject } from 'lodash'
 import fountain from './vendor/fountain'
 
 /**
@@ -57,4 +58,35 @@ export function scriptParser (file) {
       reject(error)
     }
   })
+}
+
+export function whatIsThisJSON (json) {
+  if (isJSONFromSlackChat(json)) return 'chat'
+  else if (isJSONFromSlackUsers(json)) return 'users'
+  else return null
+}
+
+function isJSONFromSlackChat (json) {
+  let proof = 0
+  // array of objects containing property "type: 'message'"
+  if (Array.isArray(json)) proof++
+  if (json.length > 0) proof++
+  if (isPlainObject(json[0]) === true) proof++
+  if (json[0].hasOwnProperty('type') && json[0].type === 'message') proof++
+
+  return (proof >= 4)
+}
+
+function isJSONFromSlackUsers (json) {
+  let proof = 0
+  // array of objects containing properties "id", "name", and "profile"
+  // must differentiate between users.json and channels.json
+  if (Array.isArray(json)) proof++
+  if (json.length > 0) proof++
+  if (isPlainObject(json[0]) === true) proof++
+  if (json[0].hasOwnProperty('id')) proof++
+  if (json[0].hasOwnProperty('name')) proof++
+  if (json[0].hasOwnProperty('profile')) proof++
+
+  return (proof >= 6)
 }

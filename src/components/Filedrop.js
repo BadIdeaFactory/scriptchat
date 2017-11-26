@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { handleFiles, scriptParser } from '../scripts/file-handlers'
+import { handleFiles, scriptParser, whatIsThisJSON } from '../scripts/file-handlers'
 import { storeFountainResult } from '../store/actions/script'
 import './Filedrop.css'
 
@@ -92,7 +92,7 @@ class Filedrop extends React.Component {
           // happen frequently in the long run, this is just for testing.
           try {
             const json = JSON.parse(file)
-            console.log(json)
+            console.log(whatIsThisJSON(json))
           } catch (err) {
             scriptParser(file)
               .then(this.props.storeFountainResult)

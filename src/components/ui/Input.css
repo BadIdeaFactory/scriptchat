@@ -27,7 +27,7 @@ input.input-with-label:focus {
   background-color: rgba(255, 255, 255, 1);
 }
 
-input.input-with-label:valid {
+input.input-with-label:valid:not(:focus) {
   border-color: #ccc;
 }
 

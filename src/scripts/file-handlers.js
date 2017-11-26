@@ -60,6 +60,13 @@ export function scriptParser (file) {
   })
 }
 
+/**
+ * Determines if a JSON parsed object is Slack chat log, users list, or neither.
+ * If neither, returns a falsy value.
+ *
+ * @param {Object} - parsed JS object from JSON
+ * @returns {string|null} - string representing what it is, or null if unknown type
+ */
 export function whatIsThisJSON (json) {
   if (isJSONFromSlackChat(json)) return 'chat'
   else if (isJSONFromSlackUsers(json)) return 'users'

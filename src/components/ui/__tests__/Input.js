@@ -10,6 +10,17 @@ describe('Input', () => {
     ReactDOM.render(<Input label="foo" />, div)
   })
 
+  it('sets an empty string initial value', () => {
+    const wrapper = shallow(<Input label="foo" />)
+    expect(wrapper.find('input').props().value).toBe('')
+  })
+
+  it('sets an initial value if provided', () => {
+    const value = 'foo'
+    const wrapper = shallow(<Input label="foo" value={value} />)
+    expect(wrapper.find('input').props().value).toBe(value)
+  })
+
   it('runs change handler when value is changed', () => {
     const value = 'foo'
     const handler = jest.fn()

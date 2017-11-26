@@ -84,8 +84,18 @@ class Filedrop extends React.Component {
     const fileList = event.dataTransfer.files
 
     handleFiles(fileList)
-      .then(scriptParser)
-      .then(this.props.storeFountainResult)
+      .then((files) => {
+        files.forEach(file => {
+          // try parsing as json first
+          try {
+            const json = JSON.parse(file)
+            console.log(json)
+          } catch (err) {
+            scriptParser(file)
+              .then(this.props.storeFountainResult)
+          }
+        })
+      })
   }
 
   // Required to prevent browser from navigating to a file

@@ -38,12 +38,8 @@ export function readBlobAsText (blob) {
 }
 
 export function handleFiles (fileList) {
-  console.log(fileList)
-
-  // just read the first one for now
-  const file = fileList[0]
-
-  return readBlobAsText(file)
+  // fileList is not a true array so we have to call it separately
+  return Promise.all(Array.prototype.map.call(fileList, readBlobAsText))
 }
 
 // Wraps Fountain.js's async functionality inside a Promise

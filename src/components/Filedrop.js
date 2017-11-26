@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { scriptParser } from '../scripts/file-handlers'
+import { handleFiles, scriptParser } from '../scripts/file-handlers'
 import { storeFountainResult } from '../store/actions/script'
 import './Filedrop.css'
 
@@ -83,19 +83,9 @@ class Filedrop extends React.Component {
     // to a variable for use in the callback.
     const fileList = event.dataTransfer.files
 
-    // just read the first one for now
-    const file = fileList[0]
-
-    if (file) {
-      const reader = new window.FileReader()
-
-      reader.onload = (e) => {
-        scriptParser(e.target.result)
-          .then(this.props.storeFountainResult)
-      }
-
-      reader.readAsText(file)
-    }
+    handleFiles(fileList)
+      .then(scriptParser)
+      .then(this.props.storeFountainResult)
   }
 
   // Required to prevent browser from navigating to a file

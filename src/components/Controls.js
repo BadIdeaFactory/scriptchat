@@ -20,7 +20,7 @@ class Controls extends React.Component {
           <Input label="Title" value={this.props.title} onChange={this.props.setTitle} />
           <Input label="Author" value={this.props.author} onChange={this.props.setAuthor} />
         </div>
-        <button onClick={this.onClickOpenFileButton}>Open script file</button>
+        <button className="button" onClick={this.onClickOpenFileButton}>Add a file</button>
       </div>
     )
   }

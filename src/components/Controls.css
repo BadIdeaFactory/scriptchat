@@ -12,3 +12,16 @@
 .properties {
   margin-bottom: 1em;
 }
+
+.button {
+  appearance: none;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  padding: 1em;
+  background-color: #4455aa;
+  color: white;
+  font-size: 16px;
+  font-family: 'Source Sans Pro';
+  cursor: pointer;
+}

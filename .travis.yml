@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - 8
+cache:
+  directories:
+    - node_modules
+
+install:
+  - npm install
+
+before_script:
+  - npm run build
+  - npm test
+
+script:
+  - gh-pages -d build

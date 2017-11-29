@@ -1,5 +1,8 @@
 import { isPlainObject } from 'lodash'
 import fountain from './vendor/fountain'
+import { proofOfConceptScriptFormatting } from './parse-chat'
+import { storeFountainResult } from '../store/actions/script'
+import store from '../store'
 
 /**
  * Wraps FileReader.readAsText() in a Promise
@@ -41,6 +44,31 @@ export function readBlobAsText (blob) {
 export function handleFiles (fileList) {
   // fileList is not a true array so we have to call it separately
   return Promise.all(Array.prototype.map.call(fileList, readBlobAsText))
+    .then((files) => {
+      files.forEach(file => {
+        // try parsing as JSON first, if it's not parseable as JSON,
+        // send it to Fountain - note: this will only show the last Fountain file
+        // per dropped set of files but that's okay, since it really shouldn't
+        // happen frequently in the long run, this is just for testing.
+        try {
+          const json = JSON.parse(file)
+          const format = whatIsThisJSON(json)
+          // parse chat
+          if (format === 'chat') {
+            const result = proofOfConceptScriptFormatting(json)
+            store.dispatch(storeFountainResult(result))
+          } else if (format === 'users') {
+            // get user data so that chat is better
+          }
+        } catch (err) {
+          console.log(err)
+          scriptParser(file)
+            .then((result) => {
+              store.dispatch(storeFountainResult(result))
+            })
+        }
+      })
+    })
 }
 
 // Wraps Fountain.js's async functionality inside a Promise

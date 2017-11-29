@@ -1,17 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { handleFiles, scriptParser, whatIsThisJSON } from '../scripts/file-handlers'
-import { proofOfConceptScriptFormatting } from '../scripts/parse-chat'
-import { storeFountainResult } from '../store/actions/script'
+import { handleFiles } from '../scripts/file-handlers'
 import './Filedrop.css'
 
 class Filedrop extends React.Component {
-  static propTypes = {
-    dispatch: PropTypes.func
-  }
-
   constructor (props) {
     super(props)
 
@@ -85,29 +76,6 @@ class Filedrop extends React.Component {
     const fileList = event.dataTransfer.files
 
     handleFiles(fileList)
-      .then((files) => {
-        files.forEach(file => {
-          // try parsing as JSON first, if it's not parseable as JSON,
-          // send it to Fountain - note: this will only show the last Fountain file
-          // per dropped set of files but that's okay, since it really shouldn't
-          // happen frequently in the long run, this is just for testing.
-          try {
-            const json = JSON.parse(file)
-            const format = whatIsThisJSON(json)
-            // parse chat
-            if (format === 'chat') {
-              const result = proofOfConceptScriptFormatting(json)
-              this.props.storeFountainResult(result)
-            } else if (format === 'users') {
-              // get user data so that chat is better
-            }
-          } catch (err) {
-            console.log(err)
-            scriptParser(file)
-              .then(this.props.storeFountainResult)
-          }
-        })
-      })
   }
 
   // Required to prevent browser from navigating to a file
@@ -137,8 +105,4 @@ class Filedrop extends React.Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ storeFountainResult }, dispatch)
-}
-
-export default connect(null, mapDispatchToProps)(Filedrop)
+export default Filedrop

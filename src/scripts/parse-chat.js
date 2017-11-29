@@ -23,8 +23,6 @@ export function proofOfConceptScriptFormatting (json) {
     }
   })
 
-  console.log(tokens)
-
   // fountain.js works backward
   tokens.reverse()
 

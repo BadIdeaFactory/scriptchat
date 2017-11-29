@@ -48,7 +48,7 @@ class Script extends React.Component {
     return (
       <div id="script" className={`us-letter ${size}`}>
         {titlePage}
-        <div className="page" dangerouslySetInnerHTML={{ __html: fountain && fountain.html && fountain.html.script || '' }} />
+        <div className="page" dangerouslySetInnerHTML={{ __html: (fountain && fountain.html && fountain.html.script) || '' }} />
       </div>
     )
   }

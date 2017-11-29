@@ -28,6 +28,7 @@ export function proofOfConceptScriptFormatting (json) {
   // fountain.js works backward
   tokens.reverse()
 
+  /* eslint-disable */
   var regex = {
     title_page: /^((?:title|credit|author[s]?|source|notes|draft date|date|contact|copyright)\:)/gim,
 
@@ -152,4 +153,5 @@ export function proofOfConceptScriptFormatting (json) {
 
   output = { title: title, html: { title_page: title_page.join(''), script: html.join('') }, tokens: tokens.reverse() };
   return output
+  /* eslint-enable */
 }

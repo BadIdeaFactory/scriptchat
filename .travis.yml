@@ -10,7 +10,7 @@ install:
 
 before_script:
   - npm run build
-  - npm test
+  # - npm test
 
 script:
   - gh-pages -d build

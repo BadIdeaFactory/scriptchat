@@ -24,6 +24,16 @@ function processText (text) {
 
   // Replace all other instances of brackets so that they don't parsed as HTML
   text = text.replace(/(<|>)/g, '')
+
+  // Capitalize the first letter of each message
+  text = text.charAt(0).toUpperCase() + text.substr(1)
+
+  // If the last character of the message is not a punctuation mark, add a period.
+  const lastCharacter = text.substr(-1)
+  if (lastCharacter.match(/[\?!.'":]/) === null) {
+    text += '.'
+  }
+
   return text
 }
 
@@ -35,20 +45,31 @@ export function proofOfConceptScriptFormatting (json) {
   })
   json.forEach(line => {
     if (line.type === 'message') {
-      tokens.push({
-        type: 'dialogue_begin'
-      })
-      tokens.push({
-        type: 'character',
-        text: getCharacterName(line.user).toUpperCase()
-      })
-      tokens.push({
-        type: 'dialogue',
-        text: processText(line.text)
-      })
-      tokens.push({
-        type: 'dialogue_end'
-      })
+      switch (line.subtype) {
+        case 'channel_join':
+          tokens.push({
+            type: 'action',
+            text: getCharacterName(line.user).toUpperCase()  + ' enters.'
+          })
+          break
+        // Normal dialogue
+        default:
+          tokens.push({
+            type: 'dialogue_begin'
+          })
+          tokens.push({
+            type: 'character',
+            text: getCharacterName(line.user).toUpperCase()
+          })
+          tokens.push({
+            type: 'dialogue',
+            text: processText(line.text)
+          })
+          tokens.push({
+            type: 'dialogue_end'
+          })
+          break
+      }
     }
   })
 

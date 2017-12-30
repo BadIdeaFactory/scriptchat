@@ -5,5 +5,4 @@ export function storeCharacterData (characters) {
     type: STORE_CHARACTERS,
     characters
   }
-  
 }

@@ -8,7 +8,23 @@ import store from '../store'
 function getCharacterName (id) {
   const characters = store.getState().characters.characters
   const character = (characters[id] && characters[id].firstName) || id
-  return character.toUpperCase()
+  return character
+}
+
+/**
+ * Process a line of text from Slack
+ *
+ * @param {string} text - the line of text from Slack
+ */
+function processText (text) {
+  // Replace user names in text
+  text = text.replace(/<@([A-Z0-9]+)>/g, (match, id) => {
+    return getCharacterName(id)
+  })
+
+  // Replace all other instances of brackets so that they don't parsed as HTML
+  text = text.replace(/(<|>)/g, '')
+  return text
 }
 
 export function proofOfConceptScriptFormatting (json) {
@@ -24,11 +40,11 @@ export function proofOfConceptScriptFormatting (json) {
       })
       tokens.push({
         type: 'character',
-        text: getCharacterName(line.user)
+        text: getCharacterName(line.user).toUpperCase()
       })
       tokens.push({
         type: 'dialogue',
-        text: line.text
+        text: processText(line.text)
       })
       tokens.push({
         type: 'dialogue_end'

@@ -30,7 +30,7 @@ function processText (text) {
 
   // If the last character of the message is not a punctuation mark, add a period.
   const lastCharacter = text.substr(-1)
-  if (lastCharacter.match(/[\?!.'":]/) === null) {
+  if (lastCharacter.match(/[?!.'":]/) === null) {
     text += '.'
   }
 

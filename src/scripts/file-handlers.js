@@ -130,12 +130,11 @@ function isJSONFromSlackUsers (json) {
 }
 
 function parseUserData (json) {
-  const obj = {}
-  json.map((user) => {
+  return json.reduce((obj, user) => {
     obj[user.id] = {
       id: user.id,
       firstName: user.profile.first_name || null
     }
-  })
-  return obj
+    return obj
+  }, {})
 }

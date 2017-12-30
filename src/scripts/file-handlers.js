@@ -2,6 +2,7 @@ import { isPlainObject } from 'lodash'
 import fountain from './vendor/fountain'
 import { proofOfConceptScriptFormatting } from './parse-chat'
 import { storeFountainResult } from '../store/actions/script'
+import { storeCharacterData } from '../store/actions/characters'
 import store from '../store'
 
 /**
@@ -59,6 +60,8 @@ export function handleFiles (fileList) {
             store.dispatch(storeFountainResult(result))
           } else if (format === 'users') {
             // get user data so that chat is better
+            const characters = parseUserData(json)
+            store.dispatch(storeCharacterData(characters))
           }
         } catch (err) {
           console.log(err)
@@ -124,4 +127,15 @@ function isJSONFromSlackUsers (json) {
   if (json[0].hasOwnProperty('profile')) proof++
 
   return (proof >= 6)
+}
+
+function parseUserData (json) {
+  const obj = {}
+  json.map((user) => {
+    obj[user.id] = {
+      id: user.id,
+      firstName: user.profile.first_name || null
+    }
+  })
+  return obj
 }

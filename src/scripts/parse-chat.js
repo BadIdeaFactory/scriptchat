@@ -1,3 +1,16 @@
+import store from '../store'
+
+/**
+ * Turns a Slack ID into a name to display
+ *
+ * @param {string} id - Slack ID 
+ */
+function getCharacterName (id) {
+  const characters = store.getState().characters.characters
+  const character = (characters[id] && characters[id].firstName) || id
+  return character.toUpperCase()
+}
+
 export function proofOfConceptScriptFormatting (json) {
   const tokens = []
   tokens.push({
@@ -11,7 +24,7 @@ export function proofOfConceptScriptFormatting (json) {
       })
       tokens.push({
         type: 'character',
-        text: line.user
+        text: getCharacterName(line.user)
       })
       tokens.push({
         type: 'dialogue',

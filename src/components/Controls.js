@@ -30,6 +30,10 @@ class Controls extends React.Component {
           <Input label="Author" value={this.props.author} onChange={this.props.setAuthor} />
         </div>
         <button className="button" onClick={this.onClickOpenFileButton}>Add a file</button>
+        <div className="file-status">
+          {(this.props.isUsersFileLoaded) ? <p className="file-status-good">user file loaded</p> : <p>user file not loaded</p>}
+          {(this.props.isTranscriptFileLoaded) ? <p className="file-status-good">transcript file loaded</p> : <p>transcript file not loaded</p>}
+        </div>
       </div>
     )
   }
@@ -38,7 +42,9 @@ class Controls extends React.Component {
 function mapStateToProps (state) {
   return {
     title: state.script.title || '',
-    author: state.script.author || ''
+    author: state.script.author || '',
+    isUsersFileLoaded: Boolean(Object.keys(state.characters.characters).length),
+    isTranscriptFileLoaded: Boolean(state.script.transcript)
   }
 }
 

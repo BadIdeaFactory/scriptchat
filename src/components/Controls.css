@@ -25,3 +25,18 @@
   font-family: 'Source Sans Pro';
   cursor: pointer;
 }
+
+.file-status {
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #bbb6b7;
+  margin-top: 1em;
+}
+
+.file-status-good {
+  color: #666;
+}
+
+.file-status p {
+  margin: 0;
+}

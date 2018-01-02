@@ -39,19 +39,29 @@ function processText (text) {
 
 export function proofOfConceptScriptFormatting (json) {
   const tokens = []
+  const charactersMentionedAlready = {}
+
   tokens.push({
     type: 'action',
     text: '<span class="bold">FADE IN:</span>'
   })
+
   json.forEach(line => {
     if (line.type === 'message') {
       switch (line.subtype) {
-        case 'channel_join':
+        case 'channel_join': {
+          let name = getCharacterName(line.user)
+          if (charactersMentionedAlready[name] !== true) {
+            name = name.toUpperCase()
+            charactersMentionedAlready[name] = true
+          }
+
           tokens.push({
             type: 'action',
-            text: getCharacterName(line.user).toUpperCase()  + ' enters.'
+            text: `${name} enters.`
           })
           break
+        }
         // Normal dialogue
         default:
           tokens.push({

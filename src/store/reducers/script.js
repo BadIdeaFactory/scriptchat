@@ -1,8 +1,9 @@
-import { SET_TITLE, SET_AUTHOR, STORE_FOUNTAIN_RESULT } from '../actions'
+import { SET_TITLE, SET_AUTHOR, STORE_RAW_TRANSCRIPT, STORE_FOUNTAIN_RESULT } from '../actions'
 
 const initialState = {
   title: null,
   author: null,
+  transcript: null,
   fountain: null
 }
 
@@ -17,6 +18,11 @@ const script = (state = initialState, action) => {
       return {
         ...state,
         author: action.author
+      }
+    case STORE_RAW_TRANSCRIPT:
+      return {
+        ...state,
+        transcript: action.transcript
       }
     case STORE_FOUNTAIN_RESULT: {
       let author

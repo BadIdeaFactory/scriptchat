@@ -1,7 +1,7 @@
 import { isPlainObject } from 'lodash'
 import fountain from './vendor/fountain'
 import { proofOfConceptScriptFormatting } from './parse-chat'
-import { storeFountainResult } from '../store/actions/script'
+import { storeRawTranscript, storeFountainResult } from '../store/actions/script'
 import { storeCharacterData } from '../store/actions/characters'
 import store from '../store'
 
@@ -42,6 +42,15 @@ export function readBlobAsText (blob) {
   })
 }
 
+/**
+ * 
+ * @param {Object} transcript - parsed JSON of raw Slack transcript file
+ */
+function renderScript (transcript) {
+  const result = proofOfConceptScriptFormatting(transcript)
+  store.dispatch(storeFountainResult(result))
+}
+
 export function handleFiles (fileList) {
   // fileList is not a true array so we have to call it separately
   return Promise.all(Array.prototype.map.call(fileList, readBlobAsText))
@@ -56,12 +65,16 @@ export function handleFiles (fileList) {
           const format = whatIsThisJSON(json)
           // parse chat
           if (format === 'chat') {
-            const result = proofOfConceptScriptFormatting(json)
-            store.dispatch(storeFountainResult(result))
+            store.dispatch(storeRawTranscript(json))
+            renderScript(json)
           } else if (format === 'users') {
             // get user data so that chat is better
             const characters = parseUserData(json)
             store.dispatch(storeCharacterData(characters))
+            const transcript = store.getState().script.transcript
+            if (transcript) {
+              renderScript(transcript)
+            }
           }
         } catch (err) {
           console.log(err)

@@ -1,5 +1,7 @@
 import store from '../store'
 
+const charactersMentionedAlready = {}
+
 /**
  * Turns a Slack ID into a name to display
  *
@@ -9,6 +11,20 @@ function getCharacterName (id) {
   const characters = store.getState().characters.characters
   const character = (characters[id] && characters[id].firstName) || id
   return character
+}
+
+function clearCharactersMentionedAlready () {
+  Object.keys(charactersMentionedAlready).forEach((key) => { delete charactersMentionedAlready[key] })
+}
+
+function getCharacterNameForAction (id) {
+  let name = getCharacterName(id)
+  console.log(JSON.parse(JSON.stringify(charactersMentionedAlready)))
+  if (charactersMentionedAlready[id] !== true) {
+    name = name.toUpperCase()
+    charactersMentionedAlready[id] = true
+  }
+  return name
 }
 
 /**
@@ -39,7 +55,6 @@ function processText (text) {
 
 export function proofOfConceptScriptFormatting (json) {
   const tokens = []
-  const charactersMentionedAlready = {}
 
   tokens.push({
     type: 'action',
@@ -49,19 +64,18 @@ export function proofOfConceptScriptFormatting (json) {
   json.forEach(line => {
     if (line.type === 'message') {
       switch (line.subtype) {
-        case 'channel_join': {
-          let name = getCharacterName(line.user)
-          if (charactersMentionedAlready[name] !== true) {
-            name = name.toUpperCase()
-            charactersMentionedAlready[name] = true
-          }
-
+        case 'channel_join':
           tokens.push({
             type: 'action',
-            text: `${name} enters.`
+            text: `${getCharacterNameForAction(line.user)} enters.`
           })
           break
-        }
+        case 'channel_leave':
+          tokens.push({
+            type: 'action',
+            text: `${getCharacterNameForAction(line.user)} leaves.`
+          })
+          break
         // Normal dialogue
         default:
           tokens.push({
@@ -82,6 +96,8 @@ export function proofOfConceptScriptFormatting (json) {
       }
     }
   })
+
+  clearCharactersMentionedAlready()
 
   // fountain.js works backward
   tokens.reverse()

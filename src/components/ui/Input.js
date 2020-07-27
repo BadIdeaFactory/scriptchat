@@ -29,7 +29,9 @@ function Input ({ label, value = '', onChange = () => {} }) {
         onChange={handleChange}
         id={id}
       />
-      <label htmlFor={id}><span>{label}</span></label>
+      <label htmlFor={id}>
+        <span>{label}</span>
+      </label>
     </div>
   )
 }

@@ -25,7 +25,10 @@ function Script (props) {
   function getTitlePage () {
     if (fountain && fountain.html && fountain.html.title_page) {
       return (
-        <div className="page title-page" dangerouslySetInnerHTML={{ __html: fountain.html.title_page }} />
+        <div
+          className="page title-page"
+          dangerouslySetInnerHTML={{ __html: fountain.html.title_page }}
+        />
       )
     } else {
       return null
@@ -33,12 +36,17 @@ function Script (props) {
   }
 
   const titlePage = getTitlePage()
-  const dpi = (size === 'large') ? 'dpi100' : 'dpi72'
+  const dpi = size === 'large' ? 'dpi100' : 'dpi72'
 
   return (
     <div id="script" className={`us-letter ${dpi}`}>
       {titlePage}
-      <div className="page" dangerouslySetInnerHTML={{ __html: (fountain && fountain.html && fountain.html.script) || '' }} />
+      <div
+        className="page"
+        dangerouslySetInnerHTML={{
+          __html: (fountain && fountain.html && fountain.html.script) || ''
+        }}
+      />
     </div>
   )
 }

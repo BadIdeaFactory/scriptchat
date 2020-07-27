@@ -27,8 +27,10 @@ function Filedrop (props) {
     // See here: http://stackoverflow.com/questions/6848043/how-do-i-detect-a-file-is-being-dragged-rather-than-a-draggable-element-on-my-pa
     // Tested in Chrome, Firefox, Safari 8
     const types = event.dataTransfer.types
-    if (types !== null &&
-      types.indexOf ? (types.indexOf('Files') !== -1) : types.contains('application/x-moz-file')
+    if (
+      types !== null && types.indexOf
+        ? types.indexOf('Files') !== -1
+        : types.contains('application/x-moz-file')
     ) {
       event.preventDefault()
       // This absolutely needs to overwrite a parameter on the original event
@@ -84,9 +86,7 @@ function Filedrop (props) {
     event.preventDefault()
   }
 
-  const displayStyle = isVisible
-    ? { display: 'block' }
-    : { display: 'none' }
+  const displayStyle = isVisible ? { display: 'block' } : { display: 'none' }
 
   return (
     <div

@@ -13,8 +13,6 @@ const charactersSlice = createSlice({
   }
 })
 
-export const {
-  storeCharacterData
-} = charactersSlice.actions
+export const { storeCharacterData } = charactersSlice.actions
 
 export default charactersSlice.reducer

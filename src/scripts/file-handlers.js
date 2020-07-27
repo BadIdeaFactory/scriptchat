@@ -18,7 +18,9 @@ export function readBlobAsText (blob) {
     // Rejects the Promise immediately if the `file` argument is not
     // a Blob or File object
     if (!(blob instanceof Blob || blob instanceof File)) {
-      reject(new Error('Unable to load your file: it is not a valid file type.'))
+      reject(
+        new Error('Unable to load your file: it is not a valid file type.')
+      )
       return
     }
 
@@ -43,7 +45,7 @@ export function readBlobAsText (blob) {
 }
 
 /**
- * 
+ *
  * @param {Object} transcript - parsed JSON of raw Slack transcript file
  */
 function renderScript (transcript) {
@@ -54,9 +56,9 @@ function renderScript (transcript) {
 
 export function handleFiles (fileList) {
   // fileList is not a true array so we have to call it separately
-  return Promise.all(Array.prototype.map.call(fileList, readBlobAsText))
-    .then((files) => {
-      files.forEach(file => {
+  return Promise.all(Array.prototype.map.call(fileList, readBlobAsText)).then(
+    (files) => {
+      files.forEach((file) => {
         // try parsing as JSON first, if it's not parseable as JSON,
         // send it to Fountain - note: this will only show the last Fountain file
         // per dropped set of files but that's okay, since it really shouldn't
@@ -79,13 +81,13 @@ export function handleFiles (fileList) {
           }
         } catch (err) {
           console.log(err)
-          scriptParser(file)
-            .then((result) => {
-              store.dispatch(storeFountainResult(result))
-            })
+          scriptParser(file).then((result) => {
+            store.dispatch(storeFountainResult(result))
+          })
         }
       })
-    })
+    }
+  )
 }
 
 // Wraps Fountain.js's async functionality inside a Promise
@@ -126,7 +128,7 @@ function isJSONFromSlackChat (json) {
   if (isPlainObject(json[0]) === true) proof++
   if (json[0].hasOwnProperty('type') && json[0].type === 'message') proof++
 
-  return (proof >= 4)
+  return proof >= 4
 }
 
 function isJSONFromSlackUsers (json) {
@@ -140,7 +142,7 @@ function isJSONFromSlackUsers (json) {
   if (json[0].hasOwnProperty('name')) proof++
   if (json[0].hasOwnProperty('profile')) proof++
 
-  return (proof >= 6)
+  return proof >= 6
 }
 
 function parseUserData (json) {

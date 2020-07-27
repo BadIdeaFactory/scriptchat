@@ -19,12 +19,7 @@ describe('script reducer', () => {
   })
 
   it('should handle setTitle()', () => {
-    expect(
-      script(
-        initialState,
-        setTitle('foo')
-      )
-    ).toEqual({
+    expect(script(initialState, setTitle('foo'))).toEqual({
       title: 'foo',
       author: null,
       transcript: null,
@@ -33,12 +28,7 @@ describe('script reducer', () => {
   })
 
   it('should handle setAuthor()', () => {
-    expect(
-      script(
-        initialState,
-        setAuthor('foo')
-      )
-    ).toEqual({
+    expect(script(initialState, setAuthor('foo'))).toEqual({
       title: null,
       author: 'foo',
       transcript: null,
@@ -47,12 +37,7 @@ describe('script reducer', () => {
   })
 
   it('should handle storeRawTranscript()', () => {
-    expect(
-      script(
-        initialState,
-        storeRawTranscript('foo')
-      )
-    ).toEqual({
+    expect(script(initialState, storeRawTranscript('foo'))).toEqual({
       title: null,
       author: null,
       transcript: 'foo',
@@ -65,16 +50,11 @@ describe('script reducer', () => {
       const mockFountainObject = {
         html: {},
         title: 'foo',
-        tokens: [
-          { type: 'author', text: 'bar' }
-        ]
+        tokens: [{ type: 'author', text: 'bar' }]
       }
 
       expect(
-        script(
-          initialState,
-          storeFountainResult(mockFountainObject)
-        )
+        script(initialState, storeFountainResult(mockFountainObject))
       ).toEqual({
         title: 'foo',
         author: 'bar',
@@ -112,9 +92,7 @@ describe('script reducer', () => {
       const mockFountainObject = {
         html: {},
         title: null,
-        tokens: [
-          { type: 'author', text: 'baz' }
-        ]
+        tokens: [{ type: 'author', text: 'baz' }]
       }
 
       expect(

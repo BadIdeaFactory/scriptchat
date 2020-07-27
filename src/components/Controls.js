@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Input from './ui/Input'
 import { openLocalFile } from '../scripts/file-input'
 import { handleFiles } from '../scripts/file-handlers'
-import { setTitle, setAuthor } from '../store/actions/script'
+import { setTitle, setAuthor } from '../store/slices/script'
 import './Controls.css'
 
 function Controls (props) {

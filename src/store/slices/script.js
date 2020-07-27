@@ -33,8 +33,12 @@ const scriptSlice = createSlice({
       }
 
       state.fountain = fountain
-      state.title = fountain.title
-      state.author = author
+      if (fountain.title) {
+        state.title = fountain.title
+      }
+      if (author) {
+        state.author = author
+      }
     }
   }
 })

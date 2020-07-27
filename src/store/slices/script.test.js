@@ -60,25 +60,79 @@ describe('script reducer', () => {
     })
   })
 
-  it('should handle storeFountainResult()', () => {
-    const mockFountainObject = {
-      html: {},
-      title: 'foo',
-      tokens: [
-        { type: 'author', text: 'bar' }
-      ]
-    }
+  describe('storeFountainResult()', () => {
+    it('should handle storeFountainResult()', () => {
+      const mockFountainObject = {
+        html: {},
+        title: 'foo',
+        tokens: [
+          { type: 'author', text: 'bar' }
+        ]
+      }
 
-    expect(
-      script(
-        initialState,
-        storeFountainResult(mockFountainObject)
-      )
-    ).toEqual({
-      title: 'foo',
-      author: 'bar',
-      transcript: null,
-      fountain: mockFountainObject
+      expect(
+        script(
+          initialState,
+          storeFountainResult(mockFountainObject)
+        )
+      ).toEqual({
+        title: 'foo',
+        author: 'bar',
+        transcript: null,
+        fountain: mockFountainObject
+      })
+    })
+
+    it('does not clear a title or author if fountain does not provide one', () => {
+      const mockFountainObject = {
+        html: {},
+        title: null,
+        tokens: []
+      }
+
+      expect(
+        script(
+          {
+            title: 'foo',
+            author: 'bar',
+            transcript: null,
+            fountain: null
+          },
+          storeFountainResult(mockFountainObject)
+        )
+      ).toEqual({
+        title: 'foo',
+        author: 'bar',
+        transcript: null,
+        fountain: mockFountainObject
+      })
+    })
+
+    it('overwrites an author if fountain provides it', () => {
+      const mockFountainObject = {
+        html: {},
+        title: null,
+        tokens: [
+          { type: 'author', text: 'baz' }
+        ]
+      }
+
+      expect(
+        script(
+          {
+            title: 'foo',
+            author: 'bar',
+            transcript: null,
+            fountain: null
+          },
+          storeFountainResult(mockFountainObject)
+        )
+      ).toEqual({
+        title: 'foo',
+        author: 'baz',
+        transcript: null,
+        fountain: mockFountainObject
+      })
     })
   })
 })

@@ -1,26 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { handleFiles } from '../scripts/file-handlers'
 import './Filedrop.css'
 
-class Filedrop extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      visible: false
-    }
-  }
+function Filedrop (props) {
+  const [isVisible, setVisible] = useState(false)
 
   // Set up drag/drop file event listeners to the window`
   // Capturing events here prevents them from resulting in file navigation
-  componentWillMount () {
-    window.addEventListener('dragenter', this.onDragEnter, true)
-    window.addEventListener('dragover', this.onDragOver, true)
-    window.addEventListener('drop', this.handleDropOnWindow, true)
-  }
+  useEffect(() => {
+    window.addEventListener('dragenter', handleDragEnter, true)
+    window.addEventListener('dragover', handleDragOver, true)
+    window.addEventListener('drop', handleDropOnWindow, true)
+
+    return () => {
+      window.removeEventListener('dragenter', handleDragEnter, true)
+      window.removeEventListener('dragover', handleDragOver, true)
+      window.removeEventListener('drop', handleDropOnWindow, true)
+    }
+  })
 
   // This handler is added to the window during the componentWillMount step
-  onDragEnter = (event) => {
+  function handleDragEnter (event) {
     // Check to make sure that dropped items are files.
     // This prevents other drags (e.g. text in editor)
     // from turning on the file drop area.
@@ -34,12 +34,12 @@ class Filedrop extends React.Component {
       // This absolutely needs to overwrite a parameter on the original event
       // eslint-disable-next-line no-param-reassign
       event.dataTransfer.dropEffect = 'copy'
-      this.setState({ visible: true })
+      setVisible(true)
     }
   }
 
   // This handler is added to the drop area when it is rendered
-  onDragOver = (event) => {
+  function handleDragOver (event) {
     // Required to prevent browser from navigating to a file
     // instead of receiving a data transfer
     event.preventDefault()
@@ -61,15 +61,15 @@ class Filedrop extends React.Component {
     event.dataTransfer.dropEffect = 'copy'
   }
 
-  onDragLeave = (event) => {
+  function handleDragLeave (event) {
     event.preventDefault()
-    this.setState({ visible: false })
+    setVisible(false)
   }
 
-  onDrop = (event) => {
+  function handleDrop (event) {
     event.preventDefault()
     event.stopPropagation()
-    this.setState({ visible: false })
+    setVisible(false)
 
     // React reuses synthetic events, so we capture the fileList
     // to a variable for use in the callback.
@@ -80,29 +80,27 @@ class Filedrop extends React.Component {
 
   // Required to prevent browser from navigating to a file
   // instead of receiving a data transfer
-  handleDropOnWindow = (event) => {
+  function handleDropOnWindow (event) {
     event.preventDefault()
   }
 
-  render () {
-    const displayStyle = this.state.visible
-      ? { display: 'block' }
-      : { display: 'none' }
+  const displayStyle = isVisible
+    ? { display: 'block' }
+    : { display: 'none' }
 
-    return (
-      <div
-        className="filedrop-container"
-        onDragEnter={this.onDragEnter}
-        onDragLeave={this.onDragLeave}
-        onDrop={this.onDrop}
-        style={displayStyle}
-      >
-        <div className="filedrop-indicator">
-          <div className="filedrop-label">Drop a file here to open</div>
-        </div>
+  return (
+    <div
+      className="filedrop-container"
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      style={displayStyle}
+    >
+      <div className="filedrop-indicator">
+        <div className="filedrop-label">Drop a file here to open</div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default Filedrop

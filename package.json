@@ -9,13 +9,13 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "1.4.0",
     "lodash": "4.17.19",
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-redux": "7.2.1",
     "react-scripts": "3.4.1",
-    "redux": "4.0.5",
     "semantic-ui-css": "2.4.1",
     "semantic-ui-react": "1.0.0"
   },

@@ -1,8 +1,8 @@
 import { isPlainObject } from 'lodash'
 import fountain from './vendor/fountain'
 import { proofOfConceptScriptFormatting } from './parse-chat'
-import { storeRawTranscript, storeFountainResult } from '../store/actions/script'
-import { storeCharacterData } from '../store/actions/characters'
+import { storeRawTranscript, storeFountainResult } from '../store/slices/script'
+import { storeCharacterData } from '../store/slices/characters'
 import store from '../store'
 
 /**
@@ -48,6 +48,7 @@ export function readBlobAsText (blob) {
  */
 function renderScript (transcript) {
   const result = proofOfConceptScriptFormatting(transcript)
+  console.log(result)
   store.dispatch(storeFountainResult(result))
 }
 

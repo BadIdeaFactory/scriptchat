@@ -1,12 +1,9 @@
-import { combineReducers } from 'redux'
-import app from './app'
-import characters from './characters'
-import script from './script'
+import characters from '../slices/characters'
+import script from '../slices/script'
 
-const reducers = combineReducers({
-  app,
+const reducers = {
   characters,
   script
-})
+}
 
 export default reducers

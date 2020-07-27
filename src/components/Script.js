@@ -1,36 +1,28 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import './Script.css'
 
-class Script extends React.Component {
-  static propTypes = {
-    fountain: PropTypes.object
-  }
+function Script (props) {
+  const [size, setSize] = useState('large')
+  const fountain = useSelector((state) => state.script.fountain)
 
-  constructor (props) {
-    super(props)
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowResize)
 
-    this.state = {
-      size: 'large'
+    return () => {
+      window.removeEventListener('resize', handleWindowResize)
+    }
+  })
+
+  function handleWindowResize (event) {
+    if (window.innerWidth < 1100) {
+      setSize('small')
+    } else {
+      setSize('large')
     }
   }
 
-  // todo: shouldcomponentupdate should check this.state.size
-
-  componentDidMount () {
-    window.addEventListener('resize', (event) => {
-      if (window.innerWidth < 1100) {
-        this.setState({ size: 'small' })
-      } else {
-        this.setState({ size: 'large' })
-      }
-    })
-  }
-
-  getTitlePage () {
-    const fountain = this.props.fountain
-
+  function getTitlePage () {
     if (fountain && fountain.html && fountain.html.title_page) {
       return (
         <div className="page title-page" dangerouslySetInnerHTML={{ __html: fountain.html.title_page }} />
@@ -40,24 +32,15 @@ class Script extends React.Component {
     }
   }
 
-  render () {
-    const fountain = this.props.fountain
-    const titlePage = this.getTitlePage()
-    const size = (this.state.size === 'large') ? 'dpi100' : 'dpi72'
+  const titlePage = getTitlePage()
+  const dpi = (size === 'large') ? 'dpi100' : 'dpi72'
 
-    return (
-      <div id="script" className={`us-letter ${size}`}>
-        {titlePage}
-        <div className="page" dangerouslySetInnerHTML={{ __html: (fountain && fountain.html && fountain.html.script) || '' }} />
-      </div>
-    )
-  }
+  return (
+    <div id="script" className={`us-letter ${dpi}`}>
+      {titlePage}
+      <div className="page" dangerouslySetInnerHTML={{ __html: (fountain && fountain.html && fountain.html.script) || '' }} />
+    </div>
+  )
 }
 
-function mapStateToProps (state) {
-  return {
-    fountain: state.script.fountain
-  }
-}
-
-export default connect(mapStateToProps)(Script)
+export default Script

@@ -8,26 +8,24 @@ import store from '../store'
 // import 'semantic-ui-css/semantic.min.css'
 import './App.css'
 
-class App extends React.Component {
-  render () {
-    return (
-      <Provider store={store}>
-        <div className="app">
-          <div className="workspace">
-            <div className="control-pane">
-              <Controls />
-            </div>
-            <div className="script-pane">
-              <Script />
-            </div>
+function App (props) {
+  return (
+    <Provider store={store}>
+      <div className="app">
+        <div className="workspace">
+          <div className="control-pane">
+            <Controls />
           </div>
-          <div className="overlays">
-            <Filedrop />
+          <div className="script-pane">
+            <Script />
           </div>
         </div>
-      </Provider>
-    )
-  }
+        <div className="overlays">
+          <Filedrop />
+        </div>
+      </div>
+    </Provider>
+  )
 }
 
 export default App

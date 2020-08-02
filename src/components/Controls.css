@@ -7,6 +7,8 @@
 .controls h1 {
   margin-top: 0;
   text-transform: uppercase;
+  text-decoration: underline;
+  font-family: 'Courier New', monospace;
 }
 
 .properties {
@@ -22,19 +24,21 @@
   background-color: #4455aa;
   color: white;
   font-size: 16px;
-  font-family: 'Source Sans Pro';
+  font-family: 'IBM Plex Mono', monospace;
   cursor: pointer;
 }
 
 .file-status {
-  font-weight: 600;
-  text-transform: uppercase;
   color: #bbb6b7;
   margin-top: 1em;
 }
 
 .file-status-good {
   color: #666;
+}
+
+.file-status-bad {
+  color: red;
 }
 
 .file-status p {

@@ -43,14 +43,14 @@ function Controls (props) {
       </button>
       <div className="file-status">
         {isUsersFileLoaded ? (
-          <p className="file-status-good">user file loaded</p>
+          <p className="file-status-good">✔️ User file loaded.</p>
         ) : (
-          <p>user file not loaded</p>
+          <p className="file-status-bad">❌ User file not loaded.</p>
         )}
         {isTranscriptFileLoaded ? (
-          <p className="file-status-good">transcript file loaded</p>
+          <p className="file-status-good">✔️ Transcript file loaded.</p>
         ) : (
-          <p>transcript file not loaded</p>
+          <p className="file-status-bad">❌ Transcript file not loaded.</p>
         )}
       </div>
     </div>

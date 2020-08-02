@@ -63,3 +63,9 @@ https://www.youtube.com/watch?v=1EnWG8PpHco&feature=youtu.be&t=1m11s
 ## Next Steps
 
 I'M WORKING ON IT!!
+
+---
+
+### Credits
+
+- Script icon by by [Bob Holzer for the Noun Project](https://thenounproject.com/search/?q=play%20script&i=107088). Licensed under Creative Commons.

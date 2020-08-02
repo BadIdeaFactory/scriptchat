@@ -1,5 +1,4 @@
-import { isPlainObject } from 'lodash'
-import fountain from './vendor/fountain'
+import { isPlainObject } from 'lodash-es'
 import { proofOfConceptScriptFormatting } from './parse-chat'
 import { storeRawTranscript, storeFountainResult } from '../store/slices/script'
 import { storeCharacterData } from '../store/slices/characters'
@@ -26,7 +25,7 @@ export function readBlobAsText (blob) {
 
     const reader = new FileReader()
 
-    // Resolves when FileReader is completely done loading. The `load` event
+    // Resolves when FileReader is completely e loading. The `load` event
     // can fire before the end of a file is encountered so we listen for
     // loadend` instead. The Promise resolves with the value of the file
     // contents but also loads into the editor.

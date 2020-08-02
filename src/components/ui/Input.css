@@ -10,14 +10,15 @@ input.input-with-label label {
 input.input-with-label {
   box-sizing: border-box;
   margin: 0;
-  margin-top: 30px;
+  margin-top: 36px;
   border: none;
   border-bottom: 1px dotted #555;
   border-radius: 2px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0);
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 18px;
+  font-size: 16px;
+  padding: 0.5em 0.2em;
   transition: background-color 0.4s ease, border 0.4s ease;
   overflow-x: hidden; /* Hack to make "rows" attribute apply in Firefox. */
 }
@@ -35,6 +36,10 @@ input.input-with-label:invalid {
   box-shadow: none;
 }
 
+input.input-with-label:valid {
+  background-color: rgba(255, 255, 255, 1);
+}
+
 input.input-with-label + label {
   display: block;
   position: relative;
@@ -47,17 +52,14 @@ input.input-with-label + label {
 
 input.input-with-label:focus + label > span,
 input.input-with-label:valid + label > span {
-  top: -54px;
-  font-size: 15px;
+  top: -64px;
 }
 
 input.input-with-label + label > span {
-  font-size: 18px;
-  font-weight: 600;
   margin: 0;
   position: absolute;
-  top: -35px;
+  top: -28px;
   left: 0px;
   cursor: pointer;
-  transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+  transition: top 0.25s ease, color 0.25s ease;
 }

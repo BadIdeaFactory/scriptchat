@@ -69,3 +69,4 @@ I'M WORKING ON IT!!
 ### Credits
 
 - Script icon by by [Bob Holzer for the Noun Project](https://thenounproject.com/search/?q=play%20script&i=107088). Licensed under Creative Commons.
+- Emoji by [OpenMoji](https://openmoji.org/). Licensed under Creative Commons ([CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/#))

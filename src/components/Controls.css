@@ -41,6 +41,16 @@
   color: red;
 }
 
+.file-status-good img,
+.file-status-bad img {
+  display: inline-block;
+  height: 24px;
+  width: auto;
+  vertical-align: bottom;
+  margin-bottom: -1px;
+  margin-right: 0.25em;
+}
+
 .file-status p {
   margin: 0;
 }

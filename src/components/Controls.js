@@ -4,6 +4,8 @@ import Input from './ui/Input'
 import { openLocalFile } from '../scripts/file-input'
 import { handleFiles } from '../scripts/file-handlers'
 import { setTitle, setAuthor } from '../store/slices/script'
+import checkmarkIcon from './2714.svg'
+import crossIcon from './274C.svg'
 import './Controls.css'
 
 function Controls (props) {
@@ -43,14 +45,26 @@ function Controls (props) {
       </button>
       <div className="file-status">
         {isUsersFileLoaded ? (
-          <p className="file-status-good">✔️ User file loaded.</p>
+          <p className="file-status-good">
+            <img src={checkmarkIcon} alt="" />
+            User file loaded.
+          </p>
         ) : (
-          <p className="file-status-bad">❌ User file not loaded.</p>
+          <p className="file-status-bad">
+            <img src={crossIcon} alt="" />
+            User file not loaded.
+          </p>
         )}
         {isTranscriptFileLoaded ? (
-          <p className="file-status-good">✔️ Transcript file loaded.</p>
+          <p className="file-status-good">
+            <img src={checkmarkIcon} alt="" />
+            Transcript file loaded.
+          </p>
         ) : (
-          <p className="file-status-bad">❌ Transcript file not loaded.</p>
+          <p className="file-status-bad">
+            <img src={crossIcon} alt="" />
+            Transcript file not loaded.
+          </p>
         )}
       </div>
     </div>

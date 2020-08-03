@@ -1,4 +1,5 @@
 import store from '../store'
+import { current } from '@reduxjs/toolkit'
 
 const charactersMentionedAlready = {}
 
@@ -85,8 +86,19 @@ export function proofOfConceptScriptFormatting (json, meta) {
     text: '<span class="bold">FADE IN:</span>'
   })
 
+  let previousCharacter
+  let dialogueOpen = false
+
   json.forEach((line) => {
     if (line.type === 'message') {
+      // Close an open dialogue if a dialogue is open, and the the user changes
+      let currentCharacter = line.user || previousCharacter
+      if (dialogueOpen && currentCharacter !== previousCharacter) {
+        tokens.push({
+          type: 'dialogue_end'
+        })
+      }
+
       switch (line.subtype) {
         case 'channel_join':
           tokens.push({
@@ -101,22 +113,26 @@ export function proofOfConceptScriptFormatting (json, meta) {
           })
           break
         // Normal dialogue
-        default:
-          tokens.push({
-            type: 'dialogue_begin'
-          })
-          tokens.push({
-            type: 'character',
-            text: getCharacterName(line.user).toUpperCase()
-          })
-          tokens.push({
-            type: 'dialogue',
-            text: processText(line.text)
-          })
-          tokens.push({
-            type: 'dialogue_end'
-          })
+        default: {
+          if (previousCharacter !== currentCharacter) {
+            tokens.push({
+              type: 'dialogue_begin'
+            })
+            tokens.push({
+              type: 'character',
+              text: getCharacterName(line.user).toUpperCase()
+            })
+            dialogueOpen = true
+            previousCharacter = currentCharacter
+          }
+          if (dialogueOpen) {
+            tokens.push({
+              type: 'dialogue',
+              text: processText(line.text)
+            })
+          }
           break
+        }
       }
     }
   })

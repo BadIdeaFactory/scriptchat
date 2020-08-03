@@ -32,10 +32,6 @@ const scriptSlice = createSlice({
 
     storeFountainResult (state, action) {
       state.fountain = action.payload
-
-      if (state.fountain.title) {
-        state.title = state.fountain.title
-      }
     }
   }
 })

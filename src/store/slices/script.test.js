@@ -76,69 +76,12 @@ describe('script reducer', () => {
       expect(
         script(initialState, storeFountainResult(mockFountainObject))
       ).toEqual({
-        title: 'foo',
+        // Note:
+        // The current implementation of the parser injects a placeholder string for
+        // the title, author, source etc. We don't want the placeholder data to replace
+        // user input, so don't update the input state.
+        title: null,
         author: null,
-        source: null,
-        transcript: null,
-        hash: null,
-        fountain: mockFountainObject
-      })
-    })
-
-    it('does not clear a title or author if fountain does not provide one', () => {
-      const mockFountainObject = {
-        html: {},
-        title: null,
-        tokens: []
-      }
-
-      expect(
-        script(
-          {
-            title: 'foo',
-            author: 'bar',
-            source: null,
-            transcript: null,
-            hash: null,
-            fountain: null
-          },
-          storeFountainResult(mockFountainObject)
-        )
-      ).toEqual({
-        title: 'foo',
-        author: 'bar',
-        source: null,
-        transcript: null,
-        hash: null,
-        fountain: mockFountainObject
-      })
-    })
-
-    // Skipped because currently Slack transcripts will not be parsed to have an author
-    // And the current implementation of the parser injects a placeholder string for
-    // the renderer, but we don't want that to be in the input box.
-    it.skip('overwrites an author if fountain provides it', () => {
-      const mockFountainObject = {
-        html: {},
-        title: null,
-        tokens: [{ type: 'author', text: 'baz' }]
-      }
-
-      expect(
-        script(
-          {
-            title: 'foo',
-            author: 'bar',
-            source: null,
-            transcript: null,
-            hash: null,
-            fountain: null
-          },
-          storeFountainResult(mockFountainObject)
-        )
-      ).toEqual({
-        title: 'foo',
-        author: 'baz',
         source: null,
         transcript: null,
         hash: null,

@@ -97,6 +97,8 @@ export function proofOfConceptScriptFormatting (json, meta) {
         tokens.push({
           type: 'dialogue_end'
         })
+        previousCharacter = ''
+        dialogueOpen = false
       }
 
       switch (line.subtype) {

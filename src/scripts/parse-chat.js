@@ -55,8 +55,30 @@ function processText (text) {
   return text
 }
 
-export function proofOfConceptScriptFormatting (json) {
+export function proofOfConceptScriptFormatting (json, meta) {
   const tokens = []
+
+  tokens.push({
+    type: 'title',
+    text: (meta.title || 'Untitled Screenplay').toUpperCase()
+  })
+
+  tokens.push({
+    type: 'credit',
+    text: 'written by'
+  })
+
+  tokens.push({
+    type: 'author',
+    text: (meta.author || 'Anonymous Writer')
+  })
+
+  tokens.push({
+    type: 'source',
+    text: meta.source
+      ? `based on a Slack transcript from ${meta.source}`
+      : 'based on a Slack transcript'
+  })
 
   tokens.push({
     type: 'action',

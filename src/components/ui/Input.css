@@ -52,13 +52,13 @@ input.input-with-label + label {
 
 input.input-with-label:focus + label > span,
 input.input-with-label:valid + label > span {
-  top: -64px;
+  top: -60px;
 }
 
 input.input-with-label + label > span {
   margin: 0;
   position: absolute;
-  top: -28px;
+  top: -26px;
   left: 0px;
   cursor: pointer;
   transition: top 0.25s ease, color 0.25s ease;

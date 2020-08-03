@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { proofOfConceptScriptFormatting } from '../scripts/parse-chat'
+import { storeFountainResult } from '../store/slices/script'
 import './Script.css'
 
 function Script (props) {
   const [size, setSize] = useState('large')
-  const fountain = useSelector((state) => state.script.fountain)
+  const transcript = useSelector((state) => state.script.transcript)
+  const title = useSelector((state) => state.script.title)
+  const author = useSelector((state) => state.script.author)
+  const source = useSelector((state) => state.script.source)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     window.addEventListener('resize', handleWindowResize)
@@ -22,7 +28,7 @@ function Script (props) {
     }
   }
 
-  function getTitlePage () {
+  function getTitlePage (fountain) {
     if (fountain && fountain.html && fountain.html.title_page) {
       return (
         <div
@@ -35,8 +41,18 @@ function Script (props) {
     }
   }
 
-  const titlePage = getTitlePage()
   const dpi = size === 'large' ? 'dpi100' : 'dpi72'
+
+  const meta = {
+    title,
+    author,
+    source
+  }
+  const result = transcript ? proofOfConceptScriptFormatting(transcript, meta) : null
+  const titlePage = getTitlePage(result)
+  if (result) {
+    dispatch(storeFountainResult(result))
+  }
 
   return (
     <div id="script" className={`us-letter ${dpi}`}>
@@ -44,7 +60,7 @@ function Script (props) {
       <div
         className="page"
         dangerouslySetInnerHTML={{
-          __html: (fountain && fountain.html && fountain.html.script) || ''
+          __html: (result && result.html && result.html.script) || ''
         }}
       />
     </div>

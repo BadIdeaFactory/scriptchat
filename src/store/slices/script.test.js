@@ -2,6 +2,7 @@
 import script, {
   setTitle,
   setAuthor,
+  setSource,
   storeRawTranscript,
   storeFountainResult
 } from './script'
@@ -10,6 +11,7 @@ describe('script reducer', () => {
   const initialState = {
     title: null,
     author: null,
+    source: null,
     transcript: null,
     fountain: null
   }
@@ -22,6 +24,7 @@ describe('script reducer', () => {
     expect(script(initialState, setTitle('foo'))).toEqual({
       title: 'foo',
       author: null,
+      source: null,
       transcript: null,
       fountain: null
     })
@@ -31,6 +34,17 @@ describe('script reducer', () => {
     expect(script(initialState, setAuthor('foo'))).toEqual({
       title: null,
       author: 'foo',
+      source: null,
+      transcript: null,
+      fountain: null
+    })
+  })
+
+  it('should handle setSource()', () => {
+    expect(script(initialState, setSource('foo'))).toEqual({
+      title: null,
+      author: null,
+      source: 'foo',
       transcript: null,
       fountain: null
     })
@@ -40,6 +54,7 @@ describe('script reducer', () => {
     expect(script(initialState, storeRawTranscript('foo'))).toEqual({
       title: null,
       author: null,
+      source: null,
       transcript: 'foo',
       fountain: null
     })
@@ -57,7 +72,8 @@ describe('script reducer', () => {
         script(initialState, storeFountainResult(mockFountainObject))
       ).toEqual({
         title: 'foo',
-        author: 'bar',
+        author: null,
+        source: null,
         transcript: null,
         fountain: mockFountainObject
       })
@@ -75,6 +91,7 @@ describe('script reducer', () => {
           {
             title: 'foo',
             author: 'bar',
+            source: null,
             transcript: null,
             fountain: null
           },
@@ -83,12 +100,16 @@ describe('script reducer', () => {
       ).toEqual({
         title: 'foo',
         author: 'bar',
+        source: null,
         transcript: null,
         fountain: mockFountainObject
       })
     })
 
-    it('overwrites an author if fountain provides it', () => {
+    // Skipped because currently Slack transcripts will not be parsed to have an author
+    // And the current implementation of the parser injects a placeholder string for
+    // the renderer, but we don't want that to be in the input box.
+    it.skip('overwrites an author if fountain provides it', () => {
       const mockFountainObject = {
         html: {},
         title: null,
@@ -100,6 +121,7 @@ describe('script reducer', () => {
           {
             title: 'foo',
             author: 'bar',
+            source: null,
             transcript: null,
             fountain: null
           },
@@ -108,6 +130,7 @@ describe('script reducer', () => {
       ).toEqual({
         title: 'foo',
         author: 'baz',
+        source: null,
         transcript: null,
         fountain: mockFountainObject
       })

@@ -43,16 +43,6 @@ export function readBlobAsText (blob) {
   })
 }
 
-/**
- *
- * @param {Object} transcript - parsed JSON of raw Slack transcript file
- */
-function renderScript (transcript) {
-  const result = proofOfConceptScriptFormatting(transcript)
-  console.log(result)
-  store.dispatch(storeFountainResult(result))
-}
-
 export function handleFiles (fileList) {
   // fileList is not a true array so we have to call it separately
   return Promise.all(Array.prototype.map.call(fileList, readBlobAsText)).then(
@@ -68,15 +58,10 @@ export function handleFiles (fileList) {
           // parse chat
           if (format === 'chat') {
             store.dispatch(storeRawTranscript(json))
-            renderScript(json)
           } else if (format === 'users') {
             // get user data so that chat is better
             const characters = parseUserData(json)
             store.dispatch(storeCharacterData(characters))
-            const transcript = store.getState().script.transcript
-            if (transcript) {
-              renderScript(transcript)
-            }
           }
         } catch (err) {
           console.log(err)

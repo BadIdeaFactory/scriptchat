@@ -5,6 +5,7 @@ const scriptSlice = createSlice({
   initialState: {
     title: null,
     author: null,
+    source: null,
     transcript: null,
     fountain: null
   },
@@ -18,26 +19,19 @@ const scriptSlice = createSlice({
       state.author = action.payload
     },
 
+    setSource (state, action) {
+      state.source = action.payload
+    },
+
     storeRawTranscript (state, action) {
       state.transcript = action.payload
     },
 
     storeFountainResult (state, action) {
-      const fountain = action.payload
+      state.fountain = action.payload
 
-      let author
-      for (let i = 0; i < fountain.tokens.length; i++) {
-        if (fountain.tokens[i].type === 'author') {
-          author = fountain.tokens[i].text
-        }
-      }
-
-      state.fountain = fountain
-      if (fountain.title) {
-        state.title = fountain.title
-      }
-      if (author) {
-        state.author = author
+      if (state.fountain.title) {
+        state.title = state.fountain.title
       }
     }
   }
@@ -46,6 +40,7 @@ const scriptSlice = createSlice({
 export const {
   setTitle,
   setAuthor,
+  setSource,
   storeRawTranscript,
   storeFountainResult
 } = scriptSlice.actions

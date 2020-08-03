@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import seedrandom from 'seedrandom'
 import { proofOfConceptScriptFormatting } from '../scripts/parse-chat'
 import { storeFountainResult } from '../store/slices/script'
 import './Script.css'
@@ -10,6 +11,7 @@ function Script (props) {
   const title = useSelector((state) => state.script.title)
   const author = useSelector((state) => state.script.author)
   const source = useSelector((state) => state.script.source)
+  const hash = useSelector((state) => state.script.hash)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -48,7 +50,8 @@ function Script (props) {
     author,
     source
   }
-  const result = transcript ? proofOfConceptScriptFormatting(transcript, meta) : null
+  const seedGenerator = seedrandom(hash)
+  const result = transcript ? proofOfConceptScriptFormatting(transcript, meta, seedGenerator) : null
   const titlePage = getTitlePage(result)
   if (result) {
     dispatch(storeFountainResult(result))

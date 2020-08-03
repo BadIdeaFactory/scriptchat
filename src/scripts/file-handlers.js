@@ -1,5 +1,4 @@
 import { isPlainObject } from 'lodash-es'
-import { proofOfConceptScriptFormatting } from './parse-chat'
 import { storeRawTranscript, storeFountainResult } from '../store/slices/script'
 import { storeCharacterData } from '../store/slices/characters'
 import store from '../store'

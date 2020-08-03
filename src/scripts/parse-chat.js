@@ -22,7 +22,6 @@ function clearCharactersMentionedAlready () {
 
 function getCharacterNameForAction (id) {
   let name = getCharacterName(id)
-  console.log(JSON.parse(JSON.stringify(charactersMentionedAlready)))
   if (charactersMentionedAlready[id] !== true) {
     name = name.toUpperCase()
     charactersMentionedAlready[id] = true
@@ -56,7 +55,7 @@ function processText (text) {
   return text
 }
 
-export function proofOfConceptScriptFormatting (json, meta) {
+export function proofOfConceptScriptFormatting (json, meta, seedGenerator) {
   const tokens = []
 
   tokens.push({
@@ -90,6 +89,10 @@ export function proofOfConceptScriptFormatting (json, meta) {
   let dialogueOpen = false
 
   json.forEach((line) => {
+    // For each line, get a random number. This can be used to create variety
+    // in generated text.
+    const random = seedGenerator()
+
     if (line.type === 'message') {
       // Close an open dialogue if a dialogue is open, and the the user changes
       let currentCharacter = line.user || previousCharacter

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import md5 from 'md5'
 
 const scriptSlice = createSlice({
   name: 'script',
@@ -7,6 +8,7 @@ const scriptSlice = createSlice({
     author: null,
     source: null,
     transcript: null,
+    hash: null,
     fountain: null
   },
 
@@ -25,6 +27,7 @@ const scriptSlice = createSlice({
 
     storeRawTranscript (state, action) {
       state.transcript = action.payload
+      state.hash = md5(JSON.stringify(action.payload))
     },
 
     storeFountainResult (state, action) {

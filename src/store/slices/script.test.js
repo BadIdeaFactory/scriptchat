@@ -13,6 +13,7 @@ describe('script reducer', () => {
     author: null,
     source: null,
     transcript: null,
+    hash: null,
     fountain: null
   }
 
@@ -26,6 +27,7 @@ describe('script reducer', () => {
       author: null,
       source: null,
       transcript: null,
+      hash: null,
       fountain: null
     })
   })
@@ -36,6 +38,7 @@ describe('script reducer', () => {
       author: 'foo',
       source: null,
       transcript: null,
+      hash: null,
       fountain: null
     })
   })
@@ -46,6 +49,7 @@ describe('script reducer', () => {
       author: null,
       source: 'foo',
       transcript: null,
+      hash: null,
       fountain: null
     })
   })
@@ -56,6 +60,7 @@ describe('script reducer', () => {
       author: null,
       source: null,
       transcript: 'foo',
+      hash: '0dba520e335c06ba9240a978e9455878',
       fountain: null
     })
   })
@@ -75,6 +80,7 @@ describe('script reducer', () => {
         author: null,
         source: null,
         transcript: null,
+        hash: null,
         fountain: mockFountainObject
       })
     })
@@ -93,6 +99,7 @@ describe('script reducer', () => {
             author: 'bar',
             source: null,
             transcript: null,
+            hash: null,
             fountain: null
           },
           storeFountainResult(mockFountainObject)
@@ -102,6 +109,7 @@ describe('script reducer', () => {
         author: 'bar',
         source: null,
         transcript: null,
+        hash: null,
         fountain: mockFountainObject
       })
     })
@@ -123,6 +131,7 @@ describe('script reducer', () => {
             author: 'bar',
             source: null,
             transcript: null,
+            hash: null,
             fountain: null
           },
           storeFountainResult(mockFountainObject)
@@ -132,6 +141,7 @@ describe('script reducer', () => {
         author: 'baz',
         source: null,
         transcript: null,
+        hash: null,
         fountain: mockFountainObject
       })
     })

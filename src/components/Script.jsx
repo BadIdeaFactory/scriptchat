@@ -12,6 +12,8 @@ function Script (props) {
   const author = useSelector((state) => state.script.author)
   const source = useSelector((state) => state.script.source)
   const hash = useSelector((state) => state.script.hash)
+  // Get character state to force update if user file is uploaded after transcript
+  const characters = useSelector((state) => state.characters.characters)
   const dispatch = useDispatch()
 
   useEffect(() => {

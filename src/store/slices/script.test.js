@@ -4,7 +4,8 @@ import script, {
   setAuthor,
   setSource,
   storeRawTranscript,
-  storeFountainResult
+  storeFountainResult,
+  clearScriptData,
 } from './script'
 
 describe('script reducer', () => {
@@ -88,5 +89,16 @@ describe('script reducer', () => {
         fountain: mockFountainObject
       })
     })
+  })
+
+  it('should handle clearScriptData()', () => {
+    expect(script({
+      title: 'foo',
+      author: 'bar',
+      source: 'baz',
+      transcript: 'qux',
+      hash: '1234567890',
+      fountain: {}
+    }, clearScriptData)).toEqual(initialState)
   })
 })

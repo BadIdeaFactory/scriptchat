@@ -28,6 +28,20 @@
   cursor: pointer;
 }
 
+.button:hover {
+  background-color: #4d5dad;
+}
+
+.button-secondary {
+  border: 1px solid #4455aa;
+  background-color: transparent;
+  color: #666;
+}
+
+.button-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
 .file-status {
   color: #bbb6b7;
   margin-top: 1em;

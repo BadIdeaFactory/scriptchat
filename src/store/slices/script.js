@@ -57,7 +57,25 @@ const scriptSlice = createSlice({
 
     storeFountainResult (state, action) {
       state.fountain = action.payload
-    }
+    },
+
+    clearScriptData (state, action) {
+      state.title = null
+      state.author = null
+      state.source = null
+      state.transcript = null
+      state.hash = null
+      state.fountain = null
+
+      try {
+        localforage.removeItem('title')
+        localforage.removeItem('author')
+        localforage.removeItem('source')
+        localforage.removeItem('transcript')
+      } catch (err) {
+        console.log(err)
+      }
+    },
   }
 })
 
@@ -66,7 +84,8 @@ export const {
   setAuthor,
   setSource,
   storeRawTranscript,
-  storeFountainResult
+  storeFountainResult,
+  clearScriptData,
 } = scriptSlice.actions
 
 export default scriptSlice.reducer

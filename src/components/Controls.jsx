@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import Input from './ui/Input'
 import { openLocalFile } from '../scripts/file-input'
 import { handleFiles } from '../scripts/file-handlers'
-import { setTitle, setAuthor, setSource } from '../store/slices/script'
+import { clearCharacterData } from '../store/slices/characters'
+import { setTitle, setAuthor, setSource, clearScriptData } from '../store/slices/script'
 import checkmarkIcon from './2714.svg'
 import crossIcon from './274C.svg'
 import './Controls.css'
@@ -26,6 +27,13 @@ function Controls (props) {
     })
   }
 
+  function handleClearData (event) {
+    if (window.confirm('Are you sure you want to clear all data?')) {
+      dispatch(clearCharacterData())
+      dispatch(clearScriptData())
+    }
+  }
+
   return (
     <div className="controls">
       <h1>Scriptchat</h1>
@@ -46,9 +54,11 @@ function Controls (props) {
           onChange={(e) => dispatch(setSource(e))}
         />
       </div>
-      <button className="button" onClick={handleClickOpenFileButton}>
-        Upload a file
-      </button>
+      <p>
+        <button className="button" onClick={handleClickOpenFileButton}>
+          Upload a file
+        </button>
+      </p>
       <div className="file-status">
         {isUsersFileLoaded ? (
           <p className="file-status-good">
@@ -73,6 +83,11 @@ function Controls (props) {
           </p>
         )}
       </div>
+      <p>
+        <button className="button button-secondary" onClick={handleClearData}>
+          Clear data
+        </button>
+      </p>
     </div>
   )
 }

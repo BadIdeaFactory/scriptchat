@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import characters, { storeCharacterData } from './characters'
+import characters, { storeCharacterData, clearCharacterData } from './characters'
 
 describe('characters reducer', () => {
   const initialState = {
@@ -25,5 +25,9 @@ describe('characters reducer', () => {
         bar: 2
       }
     })
+  })
+
+  it('should handle clearCharacterData()', () => {
+    expect(characters({ 'foo': 'bar ' }, clearCharacterData)).toEqual({})
   })
 })

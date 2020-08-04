@@ -16,10 +16,20 @@ const charactersSlice = createSlice({
       } catch (err) {
         console.log(err)
       }
+    },
+
+    clearCharacterData (state, action) {
+      state.characters = {}
+
+      try {
+        localforage.removeItem('characters')
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 })
 
-export const { storeCharacterData } = charactersSlice.actions
+export const { storeCharacterData, clearCharacterData } = charactersSlice.actions
 
 export default charactersSlice.reducer

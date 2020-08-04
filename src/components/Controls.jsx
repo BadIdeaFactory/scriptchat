@@ -47,7 +47,7 @@ function Controls (props) {
         />
       </div>
       <button className="button" onClick={handleClickOpenFileButton}>
-        Add a file
+        Upload a file
       </button>
       <div className="file-status">
         {isUsersFileLoaded ? (

@@ -1,7 +1,6 @@
 .controls {
-  padding: 1em;
-  padding-top: 25px; /* match top of script page edge */
   color: #666;
+  position: fixed;
 }
 
 .controls h1 {
@@ -24,7 +23,7 @@
   padding: 1em;
   background-color: #4455aa;
   color: white;
-  font-size: 16px;
+  font-size: 1em;
   font-family: 'IBM Plex Mono', monospace;
   cursor: pointer;
 }
@@ -45,7 +44,7 @@
 .file-status-good img,
 .file-status-bad img {
   display: inline-block;
-  height: 24px;
+  height: 1.5em;
   width: auto;
   vertical-align: bottom;
   margin-bottom: -1px;

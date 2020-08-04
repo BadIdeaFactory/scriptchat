@@ -10,14 +10,14 @@ input.input-with-label label {
 input.input-with-label {
   box-sizing: border-box;
   margin: 0;
-  margin-top: 36px;
+  margin-top: 2em;
   border: none;
   border-bottom: 1px dotted #555;
   border-radius: 2px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0);
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 16px;
+  font-size: 1em;
   padding: 0.5em 0.2em;
   transition: background-color 0.4s ease, border 0.4s ease;
   overflow-x: hidden; /* Hack to make "rows" attribute apply in Firefox. */
@@ -52,13 +52,13 @@ input.input-with-label + label {
 
 input.input-with-label:focus + label > span,
 input.input-with-label:valid + label > span {
-  top: -60px;
+  top: -3.75em;
 }
 
 input.input-with-label + label > span {
   margin: 0;
   position: absolute;
-  top: -26px;
+  top: -1.75em;
   left: 0px;
   cursor: pointer;
   transition: top 0.25s ease, color 0.25s ease;

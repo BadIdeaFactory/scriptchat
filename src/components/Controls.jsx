@@ -37,6 +37,10 @@ function Controls (props) {
   return (
     <div className="controls">
       <h1>Scriptchat</h1>
+      <p className="lede">
+        Scriptchat turns your Slack transcripts into screenplays.
+        This project is open source! For more information, check out our <a href="https://github.com/badideafactory/scriptchat">GitHub repository.</a>
+      </p>
       <div className="properties">
         <Input
           label="Screenplay title"

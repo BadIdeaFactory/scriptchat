@@ -26,3 +26,22 @@ body {
   min-width: 650px;
   text-align: center;
 }
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  margin-bottom: 3em;
+}
+
+footer span {
+  margin-right: 1em;
+  font-size: 0.75rem;
+  color: #777;
+}
+
+footer img {
+  width: 96px;
+  height: auto;
+}

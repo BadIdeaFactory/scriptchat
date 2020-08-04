@@ -1,14 +1,18 @@
 .controls {
   color: #666;
   position: fixed;
+  max-width: 300px;
 }
 
 .controls h1 {
   margin-top: 0;
-  margin-bottom: 1.5em;
   text-transform: uppercase;
   text-decoration: underline;
   font-family: 'Courier New', monospace;
+}
+
+.lede {
+  margin-bottom: 1.5em;
 }
 
 .properties {

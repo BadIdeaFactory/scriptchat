@@ -7,18 +7,23 @@
   overflow: hidden;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .control-pane {
-  width: 350px;
-  overflow-y: auto;
+  max-width: 360px;
+  min-width: 220px;
+  margin-right: 1em;
+}
+
+@media only screen and (max-width: 1200px) {
+  .control-pane {
+    max-width: 250px;
+    margin-right: 0;
+  }
 }
 
 .script-pane {
   min-width: 650px;
-  flex-grow: 1;
-  overflow-y: auto;
-  padding-left: 1em;
-  padding-right: 1em;
   text-align: center;
 }

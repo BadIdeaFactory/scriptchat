@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 // import registerServiceWorker from './registerServiceWorker'
 import App from './components/App'
+import { initialize } from './scripts/init'
 import './index.css'
 
 ReactDOM.render(
@@ -18,3 +19,5 @@ ReactDOM.render(
 if (import.meta.hot) {
   import.meta.hot.accept()
 }
+
+initialize()

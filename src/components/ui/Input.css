@@ -55,6 +55,14 @@ input.input-with-label:valid + label > span {
   top: -3.75em;
 }
 
+@media only screen and (max-width: 1200px) {
+  input.input-with-label:focus + label > span,
+  input.input-with-label:valid + label > span {
+    top: -4em;
+  }
+}
+
+
 input.input-with-label + label > span {
   margin: 0;
   position: absolute;

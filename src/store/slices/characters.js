@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import localforage from 'localforage'
 
 const charactersSlice = createSlice({
   name: 'characters',
@@ -9,6 +10,12 @@ const charactersSlice = createSlice({
   reducers: {
     storeCharacterData (state, action) {
       state.characters = action.payload
+
+      try {
+        localforage.setItem('characters', action.payload)
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 })

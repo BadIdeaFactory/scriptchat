@@ -17,6 +17,9 @@ function Script (props) {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    // Run once to set the correct size on mount
+    handleWindowResize()
+
     window.addEventListener('resize', handleWindowResize)
 
     return () => {

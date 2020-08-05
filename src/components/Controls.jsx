@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import Input from './ui/Input'
 import { openLocalFile } from '../scripts/file-input'
 import { handleFiles } from '../scripts/file-handlers'
+import { downloadTextFile } from '../scripts/file-download'
+import { buildFountainTextFormat } from '../scripts/output-fountain'
 import { clearCharacterData } from '../store/slices/characters'
 import { setTitle, setAuthor, setSource, clearScriptData } from '../store/slices/script'
 import checkmarkIcon from './2714.svg'
@@ -13,6 +15,7 @@ function Controls (props) {
   const title = useSelector((state) => state.script.title || '')
   const author = useSelector((state) => state.script.author || '')
   const source = useSelector((state) => state.script.source || '')
+  const tokens = useSelector((state) => state.script.fountain?.tokens || [])
   const isUsersFileLoaded = useSelector((state) =>
     Boolean(Object.keys(state.characters.characters).length)
   )
@@ -32,6 +35,12 @@ function Controls (props) {
       dispatch(clearCharacterData())
       dispatch(clearScriptData())
     }
+  }
+
+  function handleExportScript (event) {
+    const text = buildFountainTextFormat(tokens)
+    const filename = title.replace(/\s+/g, '_').toLowerCase() + '.fountain'
+    downloadTextFile(filename, text)
   }
 
   return (
@@ -90,6 +99,11 @@ function Controls (props) {
       <p>
         <button className="button button-secondary" onClick={handleClearData}>
           Clear data
+        </button>
+      </p>
+      <p>
+        <button className="button button-secondary" onClick={handleExportScript}>
+          Export to Fountain
         </button>
       </p>
     </div>

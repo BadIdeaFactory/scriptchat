@@ -1,7 +1,13 @@
 .controls {
   color: #666;
   position: fixed;
-  max-width: 300px;
+  max-width: 280px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .controls {
+    max-width: 250px;
+  }
 }
 
 .controls h1 {
@@ -12,7 +18,7 @@
 }
 
 .lede {
-  margin-bottom: 1.5em;
+  margin-bottom: 3em;
 }
 
 .properties {
@@ -24,8 +30,9 @@
   width: 100%;
   border: 0;
   border-radius: 4px;
-  padding: 1em;
+  padding: 0.75em;
   background-color: #4455aa;
+  border: 1px solid #4455aa;
   color: white;
   font-size: 1em;
   font-family: 'IBM Plex Mono', monospace;
@@ -43,7 +50,7 @@
 }
 
 .button-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .file-status {

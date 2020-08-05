@@ -23,6 +23,7 @@ export function openLocalFile () {
 
     el.addEventListener('change', (event) => {
       resolve(event)
+      document.body.removeChild(el)
     })
 
     el.click()

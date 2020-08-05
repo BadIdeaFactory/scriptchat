@@ -83,7 +83,7 @@ export function proofOfConceptScriptFormatting (json, meta, seedGenerator) {
 
   tokens.push({
     type: 'action',
-    text: '<span class="bold">FADE IN:</span>'
+    text: 'FADE IN:'
   })
 
   let previousCharacter

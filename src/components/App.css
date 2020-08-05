@@ -9,9 +9,9 @@ body {
 }
 
 .control-pane {
-  width: 300px;
+  width: 280px;
   padding-top: 25px; /* match top of script page edge */
-  margin-right: 1em;
+  margin-right: 2em;
 }
 
 @media only screen and (max-width: 1200px) {

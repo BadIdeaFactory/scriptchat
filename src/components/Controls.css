@@ -1,12 +1,18 @@
 .controls {
   color: #666;
-  position: fixed;
-  max-width: 280px;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (min-width: 940px) {
   .controls {
+    position: fixed;
     max-width: 250px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .controls {
+    position: fixed;
+    max-width: 280px;
   }
 }
 

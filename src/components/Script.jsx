@@ -28,7 +28,7 @@ function Script (props) {
   })
 
   function handleWindowResize (event) {
-    if (window.innerWidth <= 1200) {
+    if (window.innerWidth < 1200) {
       setSize('small')
     } else {
       setSize('large')

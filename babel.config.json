@@ -1,3 +1,15 @@
 {
-  "extends": "@snowpack/app-scripts-react/babel.config.json"
+  "extends": "@snowpack/app-scripts-react/babel.config.json",
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "esmodules": true
+        },
+        "modules": false,
+        "useBuiltIns": false
+      }
+    ]
+  ]
 }

@@ -1,6 +1,80 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import localforage from 'localforage'
 import md5 from 'md5'
+
+// These actions also update the browser catche via localforage, which is an
+// async process. For this reason, we make these thunks (plus, updating cache)
+// is a side-effect and would not be appropriate for a reducer. It works, but
+// it's discouraged. Furthermore, while we currently fail silently if there is
+// an error (failing does not affect the experience) this makes it easier to
+// handle errors if we need to.
+export const setTitle = createAsyncThunk(
+  'script/setTitle',
+  async (title, thunkAPI) => {
+    try {
+      localforage.setItem('title', title)
+    } catch (err) {
+      console.log(err)
+    }
+
+    return title
+  }
+)
+
+export const setAuthor = createAsyncThunk(
+  'script/setAuthor',
+  async (author, thunkAPI) => {
+    try {
+      localforage.setItem('author', author)
+    } catch (err) {
+      console.log(err)
+    }
+
+    return author
+  }
+)
+
+export const setSource = createAsyncThunk(
+  'script/setSource',
+  async (source, thunkAPI) => {
+    try {
+      localforage.setItem('source', source)
+    } catch (err) {
+      console.log(err)
+    }
+
+    return source
+  }
+)
+
+export const storeRawTranscript = createAsyncThunk(
+  'script/storeRawTranscript',
+  async (transcript, thunkAPI) => {
+    try {
+      localforage.setItem('transcript', transcript)
+    } catch (err) {
+      console.log(err)
+    }
+
+    return transcript
+  }
+)
+
+export const clearScriptData = createAsyncThunk(
+  'script/clearScriptData',
+  async (arg, thunkAPI) => {
+    try {
+      localforage.removeItem('title')
+      localforage.removeItem('author')
+      localforage.removeItem('source')
+      localforage.removeItem('transcript')
+    } catch (err) {
+      console.log(err)
+    }
+
+    return
+  }
+)
 
 const scriptSlice = createSlice({
   name: 'script',
@@ -14,78 +88,40 @@ const scriptSlice = createSlice({
   },
 
   reducers: {
-    setTitle (state, action) {
-      state.title = action.payload
-
-      try {
-        localforage.setItem('title', action.payload)
-      } catch (err) {
-        console.log(err)
-      }
-    },
-
-    setAuthor (state, action) {
-      state.author = action.payload
-
-      try {
-        localforage.setItem('author', action.payload)
-      } catch (err) {
-        console.log(err)
-      }
-    },
-
-    setSource (state, action) {
-      state.source = action.payload
-
-      try {
-        localforage.setItem('source', action.payload)
-      } catch (err) {
-        console.log(err)
-      }
-    },
-
-    storeRawTranscript (state, action) {
-      state.transcript = action.payload
-      state.hash = md5(JSON.stringify(action.payload))
-
-      try {
-        localforage.setItem('transcript', action.payload)
-      } catch (err) {
-        console.log(err)
-      }
-    },
-
     storeFountainResult (state, action) {
       state.fountain = action.payload
     },
+  },
 
-    clearScriptData (state, action) {
+  extraReducers: {
+    [setTitle.fulfilled]: (state, action) => {
+      state.title = action.payload
+    },
+
+    [setAuthor.fulfilled]: (state, action) => {
+      state.author = action.payload
+    },
+
+    [setSource.fulfilled]: (state, action) => {
+      state.source = action.payload
+    },
+
+    [storeRawTranscript.fulfilled]: (state, action) => {
+      state.transcript = action.payload
+      state.hash = md5(JSON.stringify(action.payload))
+    },
+
+    [clearScriptData.fulfilled]: (state, action) => {
       state.title = null
       state.author = null
       state.source = null
       state.transcript = null
       state.hash = null
       state.fountain = null
-
-      try {
-        localforage.removeItem('title')
-        localforage.removeItem('author')
-        localforage.removeItem('source')
-        localforage.removeItem('transcript')
-      } catch (err) {
-        console.log(err)
-      }
     },
   }
 })
 
-export const {
-  setTitle,
-  setAuthor,
-  setSource,
-  storeRawTranscript,
-  storeFountainResult,
-  clearScriptData,
-} = scriptSlice.actions
+export const { storeFountainResult } = scriptSlice.actions
 
 export default scriptSlice.reducer

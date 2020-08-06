@@ -28,6 +28,6 @@ describe('characters reducer', () => {
   })
 
   it('should handle clearCharacterData()', () => {
-    expect(characters({ 'foo': 'bar ' }, clearCharacterData)).toEqual({})
+    expect(characters({ 'foo': 'bar' }, clearCharacterData)).toEqual({})
   })
 })

@@ -17,6 +17,7 @@ function Controls (props) {
   const source = useSelector((state) => state.script.source || '')
   const tokens = useSelector((state) => state.script.fountain?.tokens || [])
   const isUsersFileLoaded = useSelector((state) =>
+    state.characters?.characters &&
     Boolean(Object.keys(state.characters.characters).length)
   )
   const isTranscriptFileLoaded = useSelector((state) =>

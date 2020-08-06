@@ -1,4 +1,4 @@
-import store from '../store'
+import seedrandom from 'seedrandom'
 import { buildFountainHTML } from './output-html'
 
 const charactersMentionedAlready = {}
@@ -8,8 +8,7 @@ const charactersMentionedAlready = {}
  *
  * @param {string} id - Slack ID
  */
-function getCharacterName (id) {
-  const characters = store.getState().characters.characters
+function getCharacterName (id, characters) {
   const character = (characters[id] && characters[id].firstName) || id
   return character
 }
@@ -20,8 +19,8 @@ function clearCharactersMentionedAlready () {
   })
 }
 
-function getCharacterNameForAction (id) {
-  let name = getCharacterName(id)
+function getCharacterNameForAction (id, characters) {
+  let name = getCharacterName(id, characters)
   if (charactersMentionedAlready[id] !== true) {
     name = name.toUpperCase()
     charactersMentionedAlready[id] = true
@@ -34,10 +33,10 @@ function getCharacterNameForAction (id) {
  *
  * @param {string} text - the line of text from Slack
  */
-function processText (text) {
+function processText (text, characters) {
   // Replace user names in text
   text = text.replace(/<@([A-Z0-9]+)>/g, (match, id) => {
-    return getCharacterName(id)
+    return getCharacterName(id, characters)
   })
 
   // Replace all other instances of brackets so that they don't parsed as HTML
@@ -55,7 +54,8 @@ function processText (text) {
   return text
 }
 
-export function proofOfConceptScriptFormatting (json, meta, seedGenerator) {
+export function proofOfConceptScriptFormatting (json, meta) {
+  const seedGenerator = seedrandom(meta.hash)
   const tokens = []
   const title = (meta.title || 'Untitled Screenplay').toUpperCase()
 
@@ -86,6 +86,7 @@ export function proofOfConceptScriptFormatting (json, meta, seedGenerator) {
     text: 'FADE IN:'
   })
 
+  const characters = meta.characters
   let previousCharacter
   let dialogueOpen = false
 
@@ -109,13 +110,13 @@ export function proofOfConceptScriptFormatting (json, meta, seedGenerator) {
         case 'channel_join':
           tokens.push({
             type: 'action',
-            text: `${getCharacterNameForAction(line.user)} enters.`
+            text: `${getCharacterNameForAction(line.user, characters)} enters.`
           })
           break
         case 'channel_leave':
           tokens.push({
             type: 'action',
-            text: `${getCharacterNameForAction(line.user)} leaves.`
+            text: `${getCharacterNameForAction(line.user, characters)} leaves.`
           })
           break
         // Normal dialogue
@@ -126,7 +127,7 @@ export function proofOfConceptScriptFormatting (json, meta, seedGenerator) {
             })
             tokens.push({
               type: 'character',
-              text: getCharacterName(line.user).toUpperCase()
+              text: getCharacterName(line.user, characters).toUpperCase()
             })
             dialogueOpen = true
             previousCharacter = currentCharacter
@@ -134,7 +135,7 @@ export function proofOfConceptScriptFormatting (json, meta, seedGenerator) {
           if (dialogueOpen) {
             tokens.push({
               type: 'dialogue',
-              text: processText(line.text)
+              text: processText(line.text, characters)
             })
           }
           break

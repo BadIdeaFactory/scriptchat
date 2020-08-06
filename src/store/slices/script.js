@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import localforage from 'localforage'
 import md5 from 'md5'
+import { updateFountain } from '../../scripts/update'
 
 // These actions also update the browser catche via localforage, which is an
 // async process. For this reason, we make these thunks (plus, updating cache)
@@ -10,12 +11,14 @@ import md5 from 'md5'
 // handle errors if we need to.
 export const setTitle = createAsyncThunk(
   'script/setTitle',
-  async (title, thunkAPI) => {
+  async (title, { getState, dispatch }) => {
     try {
       localforage.setItem('title', title)
     } catch (err) {
       console.log(err)
     }
+
+    updateFountain({ title }, getState, dispatch)
 
     return title
   }
@@ -23,12 +26,14 @@ export const setTitle = createAsyncThunk(
 
 export const setAuthor = createAsyncThunk(
   'script/setAuthor',
-  async (author, thunkAPI) => {
+  async (author, { getState, dispatch }) => {
     try {
       localforage.setItem('author', author)
     } catch (err) {
       console.log(err)
     }
+
+    updateFountain({ author }, getState, dispatch)
 
     return author
   }
@@ -36,12 +41,14 @@ export const setAuthor = createAsyncThunk(
 
 export const setSource = createAsyncThunk(
   'script/setSource',
-  async (source, thunkAPI) => {
+  async (source, { getState, dispatch }) => {
     try {
       localforage.setItem('source', source)
     } catch (err) {
       console.log(err)
     }
+
+    updateFountain({ source }, getState, dispatch)
 
     return source
   }
@@ -49,12 +56,14 @@ export const setSource = createAsyncThunk(
 
 export const storeRawTranscript = createAsyncThunk(
   'script/storeRawTranscript',
-  async (transcript, thunkAPI) => {
+  async (transcript, { getState, dispatch }) => {
     try {
       localforage.setItem('transcript', transcript)
     } catch (err) {
       console.log(err)
     }
+
+    updateFountain({ transcript }, getState, dispatch)
 
     return transcript
   }
@@ -62,7 +71,7 @@ export const storeRawTranscript = createAsyncThunk(
 
 export const clearScriptData = createAsyncThunk(
   'script/clearScriptData',
-  async (arg, thunkAPI) => {
+  async (arg, { getState, dispatch }) => {
     try {
       localforage.removeItem('title')
       localforage.removeItem('author')
@@ -88,6 +97,15 @@ const scriptSlice = createSlice({
   },
 
   reducers: {
+    // This sets arbitrary data on the state (used on init to repopulate
+    // store from cache) - it does not send info back to cache.
+    setScriptData (state, action) {
+      return {
+        ...state,
+        ...action.payload
+      }
+    },
+
     storeFountainResult (state, action) {
       state.fountain = action.payload
     },
@@ -122,6 +140,6 @@ const scriptSlice = createSlice({
   }
 })
 
-export const { storeFountainResult } = scriptSlice.actions
+export const { setScriptData, storeFountainResult } = scriptSlice.actions
 
 export default scriptSlice.reducer

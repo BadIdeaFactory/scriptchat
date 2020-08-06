@@ -1,7 +1,9 @@
+import md5 from 'md5'
 import { initBrowserCache, getCachedBrowserState } from './cache'
 import store from '../store'
-import { setTitle, setAuthor, setSource, storeRawTranscript } from '../store/slices/script'
-import { storeCharacterData } from '../store/slices/characters'
+import { setScriptData, storeFountainResult } from '../store/slices/script'
+import { setCharacterData } from '../store/slices/characters'
+import { proofOfConceptScriptFormatting } from './parse-chat'
 
 export async function initialize () {
   // Set up Localforage
@@ -10,19 +12,18 @@ export async function initialize () {
   // Populate Redux store with browser cache if that information is present
   const { title, author, source, transcript, characters } = await getCachedBrowserState()
 
-  if (title) {
-    store.dispatch(setTitle(title))
-  }
-  if (author) {
-    store.dispatch(setAuthor(author))
-  }
-  if (source) {
-    store.dispatch(setSource(source))
-  }
+  store.dispatch(setScriptData({
+    title, author, source, transcript
+  }))
+  store.dispatch(setCharacterData({
+    characters
+  }))
+
+  const hash = md5(JSON.stringify(transcript))
   if (transcript) {
-    store.dispatch(storeRawTranscript(transcript))
-  }
-  if (characters) {
-    store.dispatch(storeCharacterData(characters))
+    const result = proofOfConceptScriptFormatting(transcript, { title, author, source, hash, characters })
+    if (result) {
+      store.dispatch(storeFountainResult(result))
+    }
   }
 }

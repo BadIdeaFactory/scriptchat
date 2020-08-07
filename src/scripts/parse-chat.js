@@ -9,7 +9,7 @@ const charactersMentionedAlready = {}
  * @param {string} id - Slack ID
  */
 function getCharacterName (id, characters) {
-  const character = (characters[id] && characters[id].firstName) || id
+  const character = (characters?.[id]?.firstName) || id
   return character
 }
 

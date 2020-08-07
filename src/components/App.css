@@ -75,3 +75,13 @@ footer img {
   width: 96px;
   height: auto;
 }
+
+@media only print {
+  .control-pane {
+    display: none;
+  }
+
+  footer {
+    display: none;
+  }
+}

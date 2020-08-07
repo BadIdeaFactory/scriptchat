@@ -3,4 +3,3 @@ build
 *.md
 *.html
 src/scripts/vendor
-src/components/Script.css

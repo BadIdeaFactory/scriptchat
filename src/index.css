@@ -7,3 +7,9 @@ body {
   background-color: whitesmoke;
   font-size: 16px;
 }
+
+@media only print {
+  body {
+    background-color: white;
+  }
+}

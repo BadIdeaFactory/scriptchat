@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { jsPDF } from 'jspdf'
 import Input from './ui/Input'
 import { openLocalFile } from '../scripts/file-input'
 import { handleFiles } from '../scripts/file-handlers'
@@ -42,6 +43,26 @@ function Controls (props) {
     const text = buildFountainTextFormat(tokens)
     const filename = title.replace(/\s+/g, '_').toLowerCase() + '.fountain'
     downloadTextFile(filename, text)
+  }
+
+  function calculateHTMLScale () {
+    const LETTER_WIDTH_72DPI = 612 // pixels
+    const A4_WIDTH_72DPI = 595.28 // pixels
+    let srcwidth = document.getElementById('script').scrollWidth
+    return LETTER_WIDTH_72DPI / srcwidth / window.devicePixelRatio
+  }
+
+  function handleExportPDF (event) {
+    const doc = new jsPDF()
+    doc.html(document.getElementById('script'), {
+      callback: function (doc) {
+        doc.save()
+      },
+      html2canvas: {
+        scale: calculateHTMLScale()
+      },
+      filename: title.replace(/\s+/g, '_').toLowerCase() + '.pdf',
+    })
   }
 
   return (
@@ -105,6 +126,11 @@ function Controls (props) {
       <p>
         <button className="button button-secondary" onClick={handleExportScript}>
           Export to Fountain
+        </button>
+      </p>
+      <p>
+        <button className="button button-secondary" onClick={handleExportPDF}>
+          Export to PDF (beta)
         </button>
       </p>
     </div>

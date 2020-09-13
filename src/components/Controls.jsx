@@ -44,6 +44,10 @@ function Controls (props) {
     downloadTextFile(filename, text)
   }
 
+  function handlePrint (event) {
+    window.print()
+  }
+
   return (
     <div className="controls">
       <h1>Scriptchat</h1>
@@ -106,6 +110,15 @@ function Controls (props) {
         <button className="button button-secondary" onClick={handleExportScript}>
           Export to Fountain
         </button>
+      </p>
+      <p>
+        <button className="button button-secondary" onClick={handlePrint}>
+          Print
+        </button>
+      </p>
+      <p className="print-tips">
+        Protip: when printing, tell your browser to hide headers and footers. Set
+        paper size to US Letter and deselect any scaling.
       </p>
     </div>
   )

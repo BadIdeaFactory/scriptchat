@@ -22,8 +22,13 @@ describe('script reducer', () => {
     expect(script(undefined, {})).toEqual(initialState)
   })
 
+  // It's a bit unfortunate that unit tests for async thunks have
+  // to be written in a way that exposes the underlying thunk definition,
+  // but this is the best guidance I could find online. Instead of
+  // calling the dispatch itself, one must call dispatch.fulfilled()
+  // (or whatever the state is) to test the result.
   it('should handle setTitle()', () => {
-    expect(script(initialState, setTitle('foo'))).toEqual({
+    expect(script(initialState, setTitle.fulfilled('foo'))).toEqual({
       title: 'foo',
       author: null,
       source: null,
@@ -34,7 +39,7 @@ describe('script reducer', () => {
   })
 
   it('should handle setAuthor()', () => {
-    expect(script(initialState, setAuthor('foo'))).toEqual({
+    expect(script(initialState, setAuthor.fulfilled('foo'))).toEqual({
       title: null,
       author: 'foo',
       source: null,
@@ -45,7 +50,7 @@ describe('script reducer', () => {
   })
 
   it('should handle setSource()', () => {
-    expect(script(initialState, setSource('foo'))).toEqual({
+    expect(script(initialState, setSource.fulfilled('foo'))).toEqual({
       title: null,
       author: null,
       source: 'foo',
@@ -56,7 +61,7 @@ describe('script reducer', () => {
   })
 
   it('should handle storeRawTranscript()', () => {
-    expect(script(initialState, storeRawTranscript('foo'))).toEqual({
+    expect(script(initialState, storeRawTranscript.fulfilled('foo'))).toEqual({
       title: null,
       author: null,
       source: null,
@@ -99,6 +104,6 @@ describe('script reducer', () => {
       transcript: 'qux',
       hash: '1234567890',
       fountain: {}
-    }, clearScriptData)).toEqual(initialState)
+    }, clearScriptData.fulfilled)).toEqual(initialState)
   })
 })

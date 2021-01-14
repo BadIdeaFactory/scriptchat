@@ -14,7 +14,7 @@ describe('characters reducer', () => {
     expect(
       characters(
         initialState,
-        storeCharacterData({
+        storeCharacterData.fulfilled({
           foo: 1,
           bar: 2
         })
@@ -28,6 +28,16 @@ describe('characters reducer', () => {
   })
 
   it('should handle clearCharacterData()', () => {
-    expect(characters({ 'foo': 'bar' }, clearCharacterData)).toEqual({})
+    const currentState = {
+      characters: {
+        foo: 'bar'
+      }
+    }
+
+    expect(
+      characters(
+        currentState,
+        clearCharacterData.fulfilled
+    )).toEqual(initialState)
   })
 })

@@ -33,7 +33,7 @@
     "jest": "26.6.3",
     "lodash": "4.17.21",
     "prettier-standard": "16.4.1",
-    "snowpack": "2.18.5"
+    "snowpack": "3.8.8"
   },
   "browserslist": {
     "production": [
